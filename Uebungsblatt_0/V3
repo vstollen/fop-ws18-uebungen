@@ -13,3 +13,11 @@
 (check-expect (get-taxrate 300000) 100)
 (check-expect (get-taxrate 40800) 20)
 (check-expect (get-taxrate 0) 0)
+
+(define (get-income einkommen)
+  (- einkommen (* einkommen (* 0.01 (get-taxrate einkommen)))))
+
+(check-expect (get-income 40000) 32000)
+(check-expect (get-income 500000) 0)
+(check-expect (get-income 23700) 20974.5)
+(check-expect (get-income 0) 0)
