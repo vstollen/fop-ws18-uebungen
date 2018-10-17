@@ -14,6 +14,8 @@
 (check-expect (get-taxrate 40800) 20)
 (check-expect (get-taxrate 0) 0)
 
+;; Type: number -> number
+;; Returns income after taxes
 (define (get-income einkommen)
   (- einkommen (* einkommen (* 0.01 (get-taxrate einkommen)))))
 
