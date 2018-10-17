@@ -3,6 +3,8 @@
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname V3) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 (define steuersatz-pro-1000-euro 0.5)
 
+;; Type: number -> number
+;; Returns taxrate for given income
 (define (get-taxrate einkommen)
   (if (> einkommen 200000)
       100
