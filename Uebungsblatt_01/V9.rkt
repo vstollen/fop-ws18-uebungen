@@ -15,7 +15,7 @@
 (check-expect (contains-x? (list 1 7 38) 42) false)
 
 ;; Type: (list of number) -> boolean
-;; 
+;; Returns: If the list contains duplicate entries
 (define (duplicates? lst)
   (if (empty? lst)
       false
