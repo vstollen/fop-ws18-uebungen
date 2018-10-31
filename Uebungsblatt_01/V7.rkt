@@ -3,6 +3,9 @@
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname V7) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 (define-struct abc (a b))
 
+;; Type: ANY -> boolean
+;; Returns: List of abc-a and abc-b, when given abc with a list abc-b.
+;;          Otherwise returns false.
 (define (foo p)
   (if (abc? p)
       (if (list? (abc-b p))
