@@ -59,8 +59,8 @@
 
 
 ;; H2
-;; Type:
-;; Returns:
+;; Type: number binary-tree-node -> binary-tree-node
+;; Returns: Given binary tree after inserting value
 (define (insert-into-binary-tree value btn)
   (if (empty? btn)
       (make-binary-tree-node value empty empty)
@@ -104,34 +104,53 @@
      (make-binary-tree-node 77 (make-binary-tree-node 47 '() '()) '())))))))
 
 ;; H3
-;; Type:
-;; Returns:
+;; Type: (list of number) -> binary-tree-node
+;; Returns: Binary search tree given a list
 (define (binary-tree-from-list lst)
   ;; Insert code here
-  42
+  (insert-list-into-binary-tree lst empty)
 )
 
-;(check-expect (binary-tree-from-list (list 9 12 13)) (make-binary-tree-node 9 empty (make-binary-tree-node 12 empty (make-binary-tree-node 13 empty empty))))
-;(check-expect (binary-tree-from-list (list 20 23 19 14 24 29 44 8 12 31 77 47 43 33 10 2)) tree-large)
-;(check-expect (binary-tree-from-list (list 5 9 3 11 6 4 1)) tree-small)
+(check-expect (binary-tree-from-list (list 9 12 13)) (make-binary-tree-node 9 empty (make-binary-tree-node 12 empty (make-binary-tree-node 13 empty empty))))
+(check-expect (binary-tree-from-list (list 20 23 19 14 24 29 44 8 12 31 77 47 43 33 10 2)) tree-large)
+(check-expect (binary-tree-from-list (list 5 9 3 11 6 4 1)) tree-small)
 
+;; Hilfsmethode H3
+;; Type: (list of number) binary-tree-node -> binary-tree-node
+;; Returns: Binary search tree after inserting each list item
+(define (insert-list-into-binary-tree lst btn)
+  (if (empty? lst)
+      btn
+      (insert-list-into-binary-tree (rest lst) (insert-into-binary-tree (first lst) btn))))
+
+(check-expect (insert-list-into-binary-tree empty tree-large) tree-large)
+(check-expect (insert-list-into-binary-tree empty empty) empty)
+(check-expect (insert-list-into-binary-tree (list 44 8 12 31 77 47 43 33 10 2) (insert-list-into-binary-tree (list 20 23 19 14 24 29) empty)) tree-large)
 
 ;; H4
-;; Type:
-;; Returns:
+;; Type: number binary-tree-node -> binary-tree-node
+;; Returns: Binary tree after inserting a given value, allowing duplicates in form of a list of numbers
 (define (insert-into-binary-tree-duplicates value btn)
-  ;; Insert code here
-  42
-)
+  (if (empty? btn)
+      (make-binary-tree-node value empty empty)
+      (if (= value (if (list? (binary-tree-node-value btn))
+                       (first (binary-tree-node-value btn))
+                       (binary-tree-node-value btn)))
+             (make-binary-tree-node (append (if (list? (binary-tree-node-value btn))
+                                                       (binary-tree-node-value btn)
+                                                       (list (binary-tree-node-value btn))) (list value)) (binary-tree-node-left btn) (binary-tree-node-right btn))
+             (if (< (binary-tree-node-value btn) value)
+                 (make-binary-tree-node (binary-tree-node-value btn) (binary-tree-node-left btn) (insert-into-binary-tree-duplicates value (binary-tree-node-right btn)))
+                 (make-binary-tree-node (binary-tree-node-value btn) (insert-into-binary-tree-duplicates value (binary-tree-node-left btn)) (binary-tree-node-right btn))))))
 
-;(check-expect (insert-into-binary-tree-duplicates 5 (make-binary-tree-node 3 empty (make-binary-tree-node 5 empty empty))) (make-binary-tree-node 3 empty (make-binary-tree-node (list 5 5) empty empty)))
-;
-;(check-expect (insert-into-binary-tree-duplicates 11 tree-small) (make-binary-tree-node
-; 5
-; (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node 4 '() '()))
-; (make-binary-tree-node 9 (make-binary-tree-node 6 '() '()) (make-binary-tree-node (list 11 11) '() '()))))
-;
-;(check-expect (insert-into-binary-tree-duplicates 4 (insert-into-binary-tree-duplicates 4 tree-middle)) (make-binary-tree-node
-; 6
-; (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node (list 4 4 4) '() '()))
-; (make-binary-tree-node 12 (make-binary-tree-node 8 '() (make-binary-tree-node 9 '() '())) (make-binary-tree-node 14 '() '()))))
+(check-expect (insert-into-binary-tree-duplicates 5 (make-binary-tree-node 3 empty (make-binary-tree-node 5 empty empty))) (make-binary-tree-node 3 empty (make-binary-tree-node (list 5 5) empty empty)))
+
+(check-expect (insert-into-binary-tree-duplicates 11 tree-small) (make-binary-tree-node
+ 5
+ (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node 4 '() '()))
+ (make-binary-tree-node 9 (make-binary-tree-node 6 '() '()) (make-binary-tree-node (list 11 11) '() '()))))
+
+(check-expect (insert-into-binary-tree-duplicates 4 (insert-into-binary-tree-duplicates 4 tree-middle)) (make-binary-tree-node
+ 6
+ (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node (list 4 4 4) '() '()))
+ (make-binary-tree-node 12 (make-binary-tree-node 8 '() (make-binary-tree-node 9 '() '())) (make-binary-tree-node 14 '() '()))))
