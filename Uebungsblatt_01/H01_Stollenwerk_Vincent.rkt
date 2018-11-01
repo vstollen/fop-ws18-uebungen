@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname H01_NACHNAME_VORNAME) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname H01_Stollenwerk_Vincent) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 (define-struct binary-tree-node (value left right))
 
 ;; example tree 1
@@ -41,15 +41,21 @@
 
 
 ;; H1
-;; Type:
-;; Returns:
+;; Type: number binary-tree-node -> boolean
+;; Returns: If a binary search tree contains a given number
 (define (binary-tree-contains? value btn)
-  ;; Insert code here
-)
+  (if (empty? btn)
+      false
+      (if (= (binary-tree-node-value btn) value)
+          true
+          (binary-tree-contains? value (if (< (binary-tree-node-value btn) value)
+                                           (binary-tree-node-right btn)
+                                           (binary-tree-node-left btn))))))
 
-;(check-expect (binary-tree-contains? 5 (make-binary-tree-node 3 empty (make-binary-tree-node 5 empty empty))) true)
-;(check-expect (binary-tree-contains? 12 tree-small) false)
-;(check-expect (binary-tree-contains? 14 tree-middle) true)
+(check-expect (binary-tree-contains? 5 (make-binary-tree-node 3 empty (make-binary-tree-node 5 empty empty))) true)
+(check-expect (binary-tree-contains? 12 tree-small) false)
+(check-expect (binary-tree-contains? 14 tree-middle) true)
+(check-expect (binary-tree-contains? 42 empty) false)
 
 
 ;; H2
@@ -57,6 +63,7 @@
 ;; Returns:
 (define (insert-into-binary-tree value btn)
   ;; Insert code here
+  6
 )
 
 ;(check-expect (insert-into-binary-tree 100 empty) (make-binary-tree-node 100 empty empty))
@@ -98,6 +105,7 @@
 ;; Returns:
 (define (binary-tree-from-list lst)
   ;; Insert code here
+  42
 )
 
 ;(check-expect (binary-tree-from-list (list 9 12 13)) (make-binary-tree-node 9 empty (make-binary-tree-node 12 empty (make-binary-tree-node 13 empty empty))))
@@ -110,6 +118,7 @@
 ;; Returns:
 (define (insert-into-binary-tree-duplicates value btn)
   ;; Insert code here
+  42
 )
 
 ;(check-expect (insert-into-binary-tree-duplicates 5 (make-binary-tree-node 3 empty (make-binary-tree-node 5 empty empty))) (make-binary-tree-node 3 empty (make-binary-tree-node (list 5 5) empty empty)))
