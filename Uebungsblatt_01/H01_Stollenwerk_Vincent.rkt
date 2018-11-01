@@ -62,43 +62,46 @@
 ;; Type:
 ;; Returns:
 (define (insert-into-binary-tree value btn)
-  ;; Insert code here
-  6
-)
+  (if (empty? btn)
+      (make-binary-tree-node value empty empty)
+      (if (= value (binary-tree-node-value btn))
+             btn
+             (if (< (binary-tree-node-value btn) value)
+                 (make-binary-tree-node (binary-tree-node-value btn) (binary-tree-node-left btn) (insert-into-binary-tree value (binary-tree-node-right btn)))
+                 (make-binary-tree-node (binary-tree-node-value btn) (insert-into-binary-tree value (binary-tree-node-left btn)) (binary-tree-node-right btn))))))
 
-;(check-expect (insert-into-binary-tree 100 empty) (make-binary-tree-node 100 empty empty))
+(check-expect (insert-into-binary-tree 100 empty) (make-binary-tree-node 100 empty empty))
 
-;(check-expect (insert-into-binary-tree 44 tree-small) (make-binary-tree-node
-; 5
-; (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node 4 '() '()))
-; (make-binary-tree-node 9 (make-binary-tree-node 6 '() '()) (make-binary-tree-node 11 '() (make-binary-tree-node 44 '() '()))))) 
-;
-;(check-expect (insert-into-binary-tree 6 tree-large) (make-binary-tree-node
-; 20
-; (make-binary-tree-node
-;  19
-;  (make-binary-tree-node
-;   14
-;   (make-binary-tree-node
-;    8
-;    (make-binary-tree-node 2 '() (make-binary-tree-node 6 '() '()))
-;    (make-binary-tree-node 12 (make-binary-tree-node 10 '() '()) '()))
-;   '())
-;  '())
-; (make-binary-tree-node
-;  23
-;  '()
-;  (make-binary-tree-node
-;   24
-;   '()
-;   (make-binary-tree-node
-;    29
-;    '()
-;    (make-binary-tree-node
-;     44
-;     (make-binary-tree-node 31 '() (make-binary-tree-node 43 (make-binary-tree-node 33 '() '()) '()))
-;     (make-binary-tree-node 77 (make-binary-tree-node 47 '() '()) '())))))))
+(check-expect (insert-into-binary-tree 44 tree-small) (make-binary-tree-node
+ 5
+ (make-binary-tree-node 3 (make-binary-tree-node 1 '() '()) (make-binary-tree-node 4 '() '()))
+ (make-binary-tree-node 9 (make-binary-tree-node 6 '() '()) (make-binary-tree-node 11 '() (make-binary-tree-node 44 '() '()))))) 
 
+(check-expect (insert-into-binary-tree 6 tree-large) (make-binary-tree-node
+ 20
+ (make-binary-tree-node
+  19
+  (make-binary-tree-node
+   14
+   (make-binary-tree-node
+    8
+    (make-binary-tree-node 2 '() (make-binary-tree-node 6 '() '()))
+    (make-binary-tree-node 12 (make-binary-tree-node 10 '() '()) '()))
+   '())
+  '())
+ (make-binary-tree-node
+  23
+  '()
+  (make-binary-tree-node
+   24
+   '()
+   (make-binary-tree-node
+    29
+    '()
+    (make-binary-tree-node
+     44
+     (make-binary-tree-node 31 '() (make-binary-tree-node 43 (make-binary-tree-node 33 '() '()) '()))
+     (make-binary-tree-node 77 (make-binary-tree-node 47 '() '()) '())))))))
 
 ;; H3
 ;; Type:
