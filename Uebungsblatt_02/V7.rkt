@@ -1,6 +1,8 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname V7) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ())))
+;; Type: (list of number) (list of number) -> (list of (list of number))
+;; Returns: The cartesian product of two lists
 (define (cartesian-prod lst-x lst-y)
   (foldr append empty (map (lambda (x)
          (map (lambda (y)
