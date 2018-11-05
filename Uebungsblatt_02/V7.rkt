@@ -4,7 +4,11 @@
 ;; Type: (list of number) (list of number) -> (list of (list of number))
 ;; Returns: The cartesian product of two lists
 (define (cartesian-prod lst-x lst-y)
+  ;; Type: number -> (list of number)
+  ;; Returns: Cartesian product given a number and a list
   (foldr append empty (map (lambda (x)
+         ;; Type: number -> (list of number)
+         ;; Returns: list of y with x
          (map (lambda (y)
                 (list x y)) lst-y))
        lst-x)))
