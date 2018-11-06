@@ -26,3 +26,19 @@
 (check-expect (count-black-white (color-list->bitmap (list black black white black) 2 2)) (list 3 1))
 (check-expect (count-black-white (color-list->bitmap empty 0 0)) (list 0 0))
 (check-expect (count-black-white (color-list->bitmap (list white white white black black) 1 5)) (list 2 3))
+
+;; Type: image -> image
+;; Returns: Negative of the image
+(define (negative-transformation img)
+  (color-list->bitmap
+   ;; Type: color -> color
+   ;; Returns: Negative of a color
+   (map (lambda (pixel-color)
+         (make-color (- 255 (color-red pixel-color)) (- 255 (color-green pixel-color)) (- 255 (color-blue pixel-color)) (color-alpha pixel-color)))
+         (image->color-list img))
+   (image-width img)
+   (image-height img)))
+
+(check-expect (negative-transformation (color-list->bitmap (list black white black white) 2 2)) (color-list->bitmap (list white black white black) 2 2))
+(check-expect (negative-transformation (color-list->bitmap (list (make-color 100 200 255 255) (make-color 20 45 27 100)) 1 2)) (color-list->bitmap (list (make-color 155 55 0 255) (make-color 235 210 228 100)) 1 2))
+(check-expect (negative-transformation (color-list->bitmap empty 0 0)) (color-list->bitmap empty 0 0))
