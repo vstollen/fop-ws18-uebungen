@@ -6,11 +6,20 @@
 (define test-min 35)
 (define project-min 50)
 
+;; Type: (list of number) (list of (list of number number number)) -> (list of number)
+;; Precondition: matrikel-list and score-list have the same amount of entrys and are ordered
+;;               that the matrikel-nr matches the scores at a given point in the lists
+;; Returns: List of the matrikel numbers of the students that passed
 (define (passed matrikel-list score-list)
+  ;; Type: number or boolean -> boolean
+  ;; Returns: true if not a boolean
   (filter (lambda (result)
             (if (boolean? result)
                 false
                 true))
+   ;; Type: number number -> number or boolean
+   ;; Returns: Matrikel number, if the scores match the passing conditions
+   ;;          otherwise returns false
    (map (lambda (matrikel-nr scores)
          (if (< (foldr + 0 scores) total-min)
              false
