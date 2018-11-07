@@ -66,12 +66,30 @@
 (check-expect (color->vector (make-color 255 182 40 10)) (list (list 255) (list 182) (list 40)))
 (check-expect (color->vector (make-color 0 0 0 0)) (list (list 0) (list 0) (list 0)))
 
-;; Type:
-;; Returns:
-;;(define (vector->color vec)
-  ;; insert code here
-;;  )
+;; Type: (list of (list of number)) -> color
+;; Precondition: Numbers have to be exact numbers
+;; Returns: Color given a 3-dimensional vector
+(define (vector->color vec)
+  ;; Type: (list of number) -> color
+  ;; Returns: A color constructed with the rgb values of a given list with 3 elements (rgb)
+  ((lambda (rgb-list)
+    (make-color (first rgb-list) (first (rest rgb-list)) (first (rest (rest rgb-list))) 255))
+   ;; Type: (list of number) -> natural
+   ;; Precondition: Numbers have to be exact
+   ;; Returns: First entry of given list, roundet down to the next natural number,
+   ;;          if it's smaller than 0 returns 0,
+   ;;          if it's greater than 255 returns 255
+   (map (lambda (vector-entry)
+         (if (< (first vector-entry) 0)
+             0
+             (if (> (first vector-entry) 255)
+                 255
+                 (floor (first vector-entry)))))
+       vec)))
 
+(check-expect (vector->color (list (list 1) (list 2) (list 3))) (make-color 1 2 3 255))
+(check-expect (vector->color (list (list -10) (list (/ 4 3)) (list -100))) (make-color 0 1 0 255))
+(check-expect (vector->color (list (list 1000) (list -5) (list 42.5))) (make-color 255 0 42 255))
 
 ;; H3
 ;; Type:
