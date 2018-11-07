@@ -8,16 +8,6 @@
 (define m-lms-to-lms-protanopia (list (list 0 2.02344 -2.52581) (list 0 1 0) (list 0 0 1)))
 (define m-lms-to-rgb (list (list 0.0809 -0.1305 0.1167) (list -0.0102 0.0540 -0.1136) (list -0.0003 -0.0041 0.6935)))
 
-;; H1
-;; Type:
-;; Returns:
-;;(define (matrix-multiplication m1 m2)
-  ;; insert code here
-;;  )
-
-;(check-expect (matrix-multiplication (list (list 4 3) (list 6 3)) (list (list 1 2 3) (list 4 5 6))) (list (list 16 23 30) (list 18 27 36)))
-;(check-expect (matrix-multiplication (list (list 1 -5 8)  (list 1 -2 1)  (list 2 -1 -5)) (list (list 1 -5 8)  (list 1 -2 1)  (list 2 -1 -5))) (list (list 12 -3 -37) (list 1 -2 1) (list -9 -3 40)))
-
 ;; H1 helper function
 ;; Type: (list of (list of number)) -> (list of (list of number))
 ;; Precondition: All matrix rows must have the same amount of entries,
@@ -34,6 +24,37 @@
 (check-expect (get-matrix-columns (list (list 1 2 5) (list 3 4 6) (list 8 9 10))) (list (list 1 3 8) (list 2 4 9) (list 5 6 10)))
 (check-expect (get-matrix-columns empty) empty)
 (check-expect (get-matrix-columns (list (list 1) (list 2) (list 3))) (list (list 1 2 3)))
+
+;; H1 helper function from V3
+;; Type: (list of number) (list of number) -> number
+;; Precondition: Both lists have the same length
+;; Returns: Scalar of two vectors
+(define (vec-mult lst-a lst-b)
+  (foldr + 0 (map * lst-a lst-b)))
+
+(check-expect (vec-mult (list 1 2 3) (list 4 5 6)) 32)
+(check-expect (vec-mult (list 1 0 1) (list 0 1 0)) 0)
+(check-expect (vec-mult (list -5 2 1) (list 3 -8 5)) -26)
+
+;; H1
+;; Type: (list of (list of number)) (list of (list of number)) -> (list of (list of number))
+;; Precondition: The matrices must be multiplyable
+;;               (M1 column count must match M2 row count)
+;; Returns: The multiplication product of two matrices
+(define (matrix-multiplication m1 m2)
+  ;; Type: (list of number) -> (list of number)
+  ;; Returns: Matrix multiplication of a given row with the second matrix
+  (map (lambda (matrix-row)
+         ;; Type: (list of number) -> number
+         ;; Returns: Scalar product of the matrix row with a given matrix column
+         (map (lambda (matrix-column)
+                (vec-mult matrix-row matrix-column))
+              (get-matrix-columns m2)))
+       m1))
+
+(check-expect (matrix-multiplication (list (list 4 3) (list 6 3)) (list (list 1 2 3) (list 4 5 6))) (list (list 16 23 30) (list 18 27 36)))
+(check-expect (matrix-multiplication (list (list 1 -5 8)  (list 1 -2 1)  (list 2 -1 -5)) (list (list 1 -5 8)  (list 1 -2 1)  (list 2 -1 -5))) (list (list 12 -3 -37) (list 1 -2 1) (list -9 -3 40)))
+(check-expect (matrix-multiplication empty empty) empty)
 
 ;; H2
 ;; Type:
