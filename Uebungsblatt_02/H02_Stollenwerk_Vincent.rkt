@@ -57,11 +57,14 @@
 (check-expect (matrix-multiplication empty empty) empty)
 
 ;; H2
-;; Type:
-;; Returns:
-;;(define (color->vector clr)
-  ;; insert code here
-;;)
+;; Type: color -> (list of (list of number))
+;; Returns: A 3-dimensional vector with the rgb value of the given color
+(define (color->vector clr)
+  (list (list (color-red clr)) (list (color-green clr)) (list (color-blue clr))))
+
+(check-expect (color->vector (make-color 1 2 3 255)) (list (list 1) (list 2) (list 3)))
+(check-expect (color->vector (make-color 255 182 40 10)) (list (list 255) (list 182) (list 40)))
+(check-expect (color->vector (make-color 0 0 0 0)) (list (list 0) (list 0) (list 0)))
 
 ;; Type:
 ;; Returns:
