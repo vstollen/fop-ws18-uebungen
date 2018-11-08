@@ -110,8 +110,8 @@
       (cons (vector->color (rgb-vector-protanopia (color->vector (first lst)))) (protanopia-recursive-color-list (rest lst)))))
 
 ;; H4
-;; Type:
-;; Returns:
+;; Type: image -> image
+;; Returns: Given image after simulating protanopia
 (define (protanopia-recursive img)
   (color-list->bitmap (protanopia-recursive-color-list (image->color-list img)) (image-width img) (image-height img)))
 
