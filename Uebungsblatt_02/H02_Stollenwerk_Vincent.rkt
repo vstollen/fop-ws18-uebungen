@@ -101,19 +101,25 @@
 (check-within (rgb-vector-protanopia (list (list 180) (list 240) (list 75))) (list (list 232.6) (list 233.8) (list 75.8)) 0.1)
 (check-within (rgb-vector-protanopia (list (list 65) (list 198) (list 42))) (list (list 182.5) (list 183.4) (list 42.3)) 0.1)
 
+;; H4 helper function
+;; Type: (list of color) -> (list of color)
+;; Returns: List after simulating protanopia on all entries
+(define (protanopia-recursive-color-list lst)
+  (if (empty? lst)
+      empty
+      (cons (vector->color (rgb-vector-protanopia (color->vector (first lst)))) (protanopia-recursive-color-list (rest lst)))))
 
 ;; H4
 ;; Type:
 ;; Returns:
-;;(define (protanopia-recursive img)
-  ;; insert code here
-;;  )
+(define (protanopia-recursive img)
+  (color-list->bitmap (protanopia-recursive-color-list (image->color-list img)) (image-width img) (image-height img)))
 
-;(define input (bitmap/file "rainbow_colors.png"))
-;(define protanopia (protanopia-recursive input))
-;(define solution (bitmap/file "solution_rainbow_colors.png"))
-;(check-expect protanopia solution)
-;(save-image protanopia "out_rainbow_colors.png")
+(define input (bitmap/file "rainbow_colors.png"))
+(define protanopia (protanopia-recursive input))
+(define solution (bitmap/file "solution_rainbow_colors.png"))
+(check-expect protanopia solution)
+(save-image protanopia "out_rainbow_colors.png")
 
 
 ;; H5
