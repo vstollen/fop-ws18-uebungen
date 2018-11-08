@@ -134,12 +134,28 @@
 
 (define map-protanopia (protanopia-map input))
 (check-expect map-protanopia solution)
-(save-image protanopia "out_map_rainbow_colors.png")
+(save-image map-protanopia "out_map_rainbow_colors.png")
 
 
 ;; H6
-;; Types:
-;; Returns:
-;;(define (image-similarity img1 img2 max-difference)
-  ;; insert code here
-;;  )
+;; Types: image image number -> number
+;; Precondition: Both images have the same size and have at least 1 pixel
+;; Returns: Percentage of pixels in the first image with a smaller difference to the second image than the given number
+(define (image-similarity img1 img2 max-difference)
+  ;; Types: number -> boolean
+  ;; Returns: If the given number is smaller than max-difference
+  (* (/ (length (filter (lambda (difference)
+                  (< difference max-difference))
+          ;; Types: color color -> number
+          ;; Returns: Measurement of the difference of two pixels
+          (map (lambda (color1 color2)
+         (+ (abs (- (color-red color1) (color-red color2))) (abs (- (color-green color1) (color-green color2))) (abs (- (color-blue color1) (color-blue color2)))))
+       (image->color-list img1) (image->color-list img2))))
+     (length (image->color-list img1)))
+     100))
+
+(image-similarity input solution 100)
+
+;; H7
+(save-image (protanopia-recursive (bitmap/file "testimage.png")) "out_recursive_testimage.png")
+(save-image (protanopia-map (bitmap/file "testimage.png")) "out_map_testimage.png")
