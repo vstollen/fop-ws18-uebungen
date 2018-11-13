@@ -12,6 +12,40 @@ public class FirstStepsKarel implements Directions {
 		
 		// TODO
 
+		Robot karel = new Robot(5, 5, Directions.East, 3);
+
+		for (int i = 0; i < 2; i+=1) {
+			karel.move();
+		}
+
+		while (!karel.facingSouth()) {
+			karel.turnLeft();
+		}
+
+		karel.move();
+
+		karel.putBeeper();
+
+		for (int i = 0; i < 2; i+=1) {
+			karel.move();
+		}
+
+		for (int i = 0; i < 2; i+=1) {
+			karel.putBeeper();
+		}
+
+		while (!karel.facingWest()) {
+			karel.turnLeft();
+		}
+
+		for (int i = 0; i < 2; i+=1) {
+			karel.move();
+		}
+
+		karel.pickBeeper();
+
+		karel.move();
+
 	}
 
 }
