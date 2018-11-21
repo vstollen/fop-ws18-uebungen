@@ -12,12 +12,42 @@ public class IndianaKarel extends Robot {
 			turnLeft();
 	}
 
-	
+	public void putBeepers(int numberOfBeepers) {
+		for (int i = 0; i < numberOfBeepers; i++) {
+			putBeeper();
+		}
+	}
+
 	// H1
-	public static int pyramidBeepers = 0;
+	public static int pyramidBeepers = 140;
 
 	public void buildPyramid() {
-		// TODO
+		move();
+		turnLeft();
+
+		for (int rowWidth = 13; rowWidth > 0; rowWidth = rowWidth - 2) {
+			move();
+			boolean karelOnEvenStreet = street() % 2 == 0;
+
+			if (karelOnEvenStreet) {
+				turnRight();
+			} else {
+				turnLeft();
+			}
+
+			for (int beepersToPlace = rowWidth; beepersToPlace > 0; beepersToPlace--) {
+				move();
+				putBeepers(street() - 3);
+			}
+
+			if (karelOnEvenStreet) {
+				turnLeft();
+			} else {
+				turnRight();
+			}
+		}
+
+		move();
 		turnOff();
 	}
 
