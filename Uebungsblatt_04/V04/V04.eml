@@ -2,7 +2,7 @@
 <component inheritJdk="true">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<lib name="KarelJRobot.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/KarelJRobot.jar!/"/>
-	</lib>
+	<levels>
+		<level name="KarelJRobot" value="project"/>
+	</levels>
 </component>
