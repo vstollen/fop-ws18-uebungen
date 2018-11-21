@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5abe4301-5b20-44be-bf81-790ee0922858" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/V10.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/V12.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -22,24 +22,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="1" />
-          <entry key="java" value="7" />
+          <entry key="class" value="3" />
+          <entry key="java" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="7" />
+          <entry key="CLASS" value="3" />
+          <entry key="JAVA" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1955" />
+          <entry key="java" value="2721" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1955" />
+          <entry key="JAVA" value="2721" />
         </counts>
       </usages-collector>
     </session>
@@ -112,11 +112,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/V10.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+            <state relative-caret-position="34">
+              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/V12.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,6 +160,7 @@
         <option value="$PROJECT_DIR$/src/V7.java" />
         <option value="$PROJECT_DIR$/src/V9.java" />
         <option value="$PROJECT_DIR$/src/V10.java" />
+        <option value="$PROJECT_DIR$/src/V12.java" />
       </list>
     </option>
   </component>
@@ -196,7 +209,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542805343804" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542806351003" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="D:/Programme/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -213,7 +226,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.V10">
+  <component name="RunManager" selected="Application.V12">
     <configuration name="V10" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="V10" />
       <module name="V04" />
@@ -221,8 +234,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="V5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="V5" />
+    <configuration name="V12" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="V12" />
       <module name="V04" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -250,19 +263,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.V5" />
       <item itemvalue="Application.V6" />
       <item itemvalue="Application.V7" />
       <item itemvalue="Application.V9" />
       <item itemvalue="Application.V10" />
+      <item itemvalue="Application.V12" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.V12" />
         <item itemvalue="Application.V10" />
         <item itemvalue="Application.V9" />
         <item itemvalue="Application.V7" />
         <item itemvalue="Application.V6" />
-        <item itemvalue="Application.V5" />
       </list>
     </recent_temporary>
   </component>
@@ -276,12 +289,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542797634144</updated>
-      <workItem from="1542797640787" duration="4605000" />
+      <workItem from="1542797640787" duration="5711000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4605000" />
+    <option name="totallyTimeSpent" value="5711000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -292,7 +305,7 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
@@ -301,7 +314,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -385,10 +398,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/V10.java">
+    <entry file="jar://$PROJECT_DIR$/KarelJRobot.jar!/kareltherobot/Robot.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="method#frontIsClear#0;class#Robot#0" />
+            <element signature="method#nextToABeeper#0;class#Robot#0" />
+            <element signature="method#nextToARobot#0;class#Robot#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/KarelJRobot.jar!/kareltherobot/ur_Robot.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="146" column="22" lean-forward="true" selection-start-line="146" selection-start-column="22" selection-end-line="146" selection-end-column="22" />
+          <folding>
+            <element signature="e#1045#1334#0" />
+            <element signature="e#1340#2788#0" />
+            <element signature="e#2794#3447#0" />
+            <element signature="e#3453#4149#0" />
+            <element signature="e#4481#5261#0" />
+            <element signature="e#5267#5948#0" />
+            <element signature="e#5954#6542#0" />
+            <element signature="e#6548#6864#0" />
+            <element signature="e#6870#7255#0" />
+            <element signature="e#7261#7637#0" />
+            <element signature="e#7643#7775#0" />
+            <element signature="e#7781#7806#0" />
+            <element signature="e#7812#8252#0" />
+            <element signature="e#8258#8712#0" />
+            <element signature="e#8718#9041#0" />
+            <element signature="e#9047#9341#0" />
+            <element signature="e#9347#9516#0" />
+            <element signature="e#9522#9637#0" />
+            <element signature="e#9643#9787#0" />
+            <element signature="e#9793#10241#0" />
+            <element signature="e#10247#10415#0" />
+            <element signature="e#10421#10583#0" />
+            <element signature="e#10589#10767#0" />
+            <element signature="e#12187#12365#0" />
+            <element signature="e#12371#12483#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/V10.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/V12.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
