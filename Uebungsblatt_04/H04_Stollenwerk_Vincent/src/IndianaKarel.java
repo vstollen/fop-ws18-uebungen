@@ -54,7 +54,15 @@ public class IndianaKarel extends Robot {
 	
 	// H2
 	public void solveMaze() {
-		// TODO
+		while (!nextToABeeper()) {
+			turnLeft();
+			while (!frontIsClear()) {
+				turnRight();
+			}
+
+			move();
+		}
+		pickBeeper();
 		turnOff();
 	}
 	
