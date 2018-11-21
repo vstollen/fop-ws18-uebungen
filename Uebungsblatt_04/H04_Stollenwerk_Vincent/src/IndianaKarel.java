@@ -3,6 +3,9 @@ import kareltherobot.World;
 
 public class IndianaKarel extends Robot {
 
+	public static final int RIGHT = -1;
+	public static final int LEFT = 1;
+
 	public IndianaKarel(int street, int avenue, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
 	}
@@ -69,8 +72,65 @@ public class IndianaKarel extends Robot {
 
 	// H3
 	public void collectAll() {
-		// TODO
+		moveToStartPosition();
+
+		int nextTurn = 0;
+
+		do {
+
+			movePickAllBeepers();
+
+			if (nextTurn == RIGHT) {
+				turnRight();
+			} else {
+				turnLeft();
+			}
+
+			if (nextTurn == LEFT) {
+				nextTurn = RIGHT;
+			} else {
+				nextTurn = LEFT;
+			}
+
+			while (frontIsClear()) {
+				movePickAllBeepers();
+			}
+
+			if (nextTurn == LEFT) {
+				turnLeft();
+			} else {
+				turnRight();
+			}
+		} while (frontIsClear());
 		turnOff();
+	}
+
+	public void movePickAllBeepers() {
+		while (nextToABeeper()) {
+			pickBeeper();
+		}
+
+		move();
+	}
+
+	public void moveToStartPosition() {
+		while (frontIsClear()) {
+			move();
+		}
+
+		turnLeft();
+
+		while (frontIsClear()) {
+			move();
+		}
+
+		turnLeft();
+		turnLeft();
+
+		move();
+
+		turnLeft();
+		turnLeft();
 	}
 
 }
