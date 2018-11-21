@@ -3,7 +3,7 @@ import kareltherobot.World;
 
 public class IndianaWorld implements Directions {
 
-	private static int exerciseNumber = 3;
+	private static int exerciseNumber = 1;
 
 	public static void main(String[] args) {
 		World.setVisible(true); // Karel J Fenster anzeigen
