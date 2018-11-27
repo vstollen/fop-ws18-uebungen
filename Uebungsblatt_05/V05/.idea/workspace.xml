@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5abe4301-5b20-44be-bf81-790ee0922858" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/V5.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DirectionTurner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -44,7 +44,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/V5.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
@@ -53,6 +53,20 @@
                 <element signature="imports" expanded="true" />
                 <element signature="e#120#121#0" expanded="true" />
                 <element signature="e#163#164#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DirectionTurner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#146#147#0" expanded="true" />
+                <element signature="e#189#190#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,6 +100,7 @@
         <option value="$PROJECT_DIR$/src/V3.java" />
         <option value="$PROJECT_DIR$/src/V4.java" />
         <option value="$PROJECT_DIR$/src/V5.java" />
+        <option value="$PROJECT_DIR$/src/DirectionTurner.java" />
       </list>
     </option>
   </component>
@@ -124,7 +139,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543353476978" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543353817295" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="D:/Programme/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -142,16 +157,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.V5">
-    <configuration name="EclipseReady" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="EclipseReady" />
+  <component name="RunManager" selected="Application.DirectionTurner">
+    <configuration name="DirectionTurner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DirectionTurner" />
       <module name="V05" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="V12" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="V12" />
+    <configuration name="EclipseReady" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="EclipseReady" />
       <module name="V05" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -179,19 +194,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.V12" />
       <item itemvalue="Application.EclipseReady" />
       <item itemvalue="Application.V3" />
       <item itemvalue="Application.V4" />
       <item itemvalue="Application.V5" />
+      <item itemvalue="Application.DirectionTurner" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DirectionTurner" />
         <item itemvalue="Application.V5" />
         <item itemvalue="Application.V4" />
         <item itemvalue="Application.V3" />
         <item itemvalue="Application.EclipseReady" />
-        <item itemvalue="Application.V12" />
       </list>
     </recent_temporary>
   </component>
@@ -206,18 +221,18 @@
       <option name="presentableId" value="Default" />
       <updated>1542797634144</updated>
       <workItem from="1542797640787" duration="6386000" />
-      <workItem from="1543350782209" duration="2687000" />
+      <workItem from="1543350782209" duration="3029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9073000" />
+    <option name="totallyTimeSpent" value="9415000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="31" width="1920" height="1049" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25239617" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25239617" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -227,7 +242,7 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -385,6 +400,18 @@
             <element signature="imports" expanded="true" />
             <element signature="e#120#121#0" expanded="true" />
             <element signature="e#163#164#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DirectionTurner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#146#147#0" expanded="true" />
+            <element signature="e#189#190#0" expanded="true" />
           </folding>
         </state>
       </provider>
