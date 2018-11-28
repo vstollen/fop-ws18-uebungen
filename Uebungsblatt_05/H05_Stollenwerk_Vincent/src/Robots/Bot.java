@@ -12,8 +12,8 @@ public class Bot extends Robot {
     private boolean waitingForRepair;
 
 
-    public Bot(int i, int i1, Direction direction, int i2) {
-        super(i, i1, direction, i2);
+    public Bot(int street, int avenue, Direction direction, int beepers) {
+        super(street, avenue, direction, beepers);
 
         waitingForRepair = false;
 
@@ -76,7 +76,7 @@ public class Bot extends Robot {
     public Part checkForDamagedParts() {
 
         for (Part part : parts) {
-            if (part.getCondition().equals(Part.conditionDamaged)) {
+            if (part.getCondition() == Part.conditionDamaged) {
                 return part;
             }
         }
@@ -95,7 +95,7 @@ public class Bot extends Robot {
             battery.setLevel(battery.getLevel() - 1);
         }
 
-        if (!battery.getCondition().equals(Part.conditionDamaged)) {
+        if (!(battery.getCondition() == Part.conditionDamaged)) {
 
             // 200, da Arms bei 12.5% kaputt gehen
             int randomNumber = MainController.getRandomNumber(1, 200);
@@ -110,7 +110,7 @@ public class Bot extends Robot {
         }
 
         for (Part part : parts) {
-            if (part.getCondition().equals(Part.conditionNew)) {
+            if (part.getCondition() == Part.conditionNew) {
                 part.setCondition(Part.conditionUsed);
             }
         }
