@@ -1,6 +1,7 @@
 package Robots;
 
 import Main.MainController;
+import Main.RepairInstruction;
 import Parts.Battery;
 import Parts.Part;
 import kareltherobot.Robot;
@@ -114,6 +115,26 @@ public class Bot extends Robot {
             }
         }
     }
+
+    public void doMove() {
+
+        Part damagedPart = checkForDamagedParts();
+
+        if (damagedPart == null) {
+            randomMove();
+            wearOutParts();
+
+            if (waitingForRepair) {
+                waitingForRepair = false;
+            }
+        } else if (!waitingForRepair) {
+            waitingForRepair = true;
+
+            RepairInstruction repairInstruction = new RepairInstruction(this, damagedPart.getName());
+            MainController.orderRepairInstruction(repairInstruction);
+        }
+    }
+
 
     private void damagePart(String partName) {
 
