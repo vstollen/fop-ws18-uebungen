@@ -1,5 +1,4 @@
 import kareltherobot.Robot;
-import kareltherobot.World;
 
 public class DirectionTurner extends Robot {
 
