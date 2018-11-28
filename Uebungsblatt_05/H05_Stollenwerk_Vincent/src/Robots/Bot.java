@@ -71,4 +71,57 @@ public class Bot extends Robot {
 
         move();
     }
+
+    public Part checkForDamagedParts() {
+
+        for (Part part : parts) {
+            if (part.getCondition().equals(Part.conditionDamaged)) {
+                return part;
+            }
+        }
+
+        return null;
+    }
+
+    public void wearOutParts() {
+
+        int batteryIndex = getPartIndexByName("Battery");
+
+        Battery battery = new Battery(Part.conditionNew, 100);
+
+        if (batteryIndex != -1) {
+            battery = (Battery) getPart(batteryIndex);
+            battery.setLevel(battery.getLevel() - 1);
+        }
+
+        if (!battery.getCondition().equals(Part.conditionDamaged)) {
+
+            // 200, da Arms bei 12.5% kaputt gehen
+            int randomNumber = MainController.getRandomNumber(1, 200);
+
+            if (0 < randomNumber && randomNumber <= 20) {
+                damagePart("Camera");
+            } else if (20 < randomNumber && randomNumber <= 64) {
+                damagePart("Legs");
+            } else if (64 < randomNumber && randomNumber <= 89) {
+                damagePart("Arms");
+            }
+        }
+
+        for (Part part : parts) {
+            if (part.getCondition().equals(Part.conditionNew)) {
+                part.setCondition(Part.conditionUsed);
+            }
+        }
+    }
+
+    private void damagePart(String partName) {
+
+        int partIndex = getPartIndexByName(partName);
+
+        if (partIndex != -1) {
+            Part part = getPart(partIndex);
+            part.setCondition(Part.conditionDamaged);
+        }
+    }
 }
