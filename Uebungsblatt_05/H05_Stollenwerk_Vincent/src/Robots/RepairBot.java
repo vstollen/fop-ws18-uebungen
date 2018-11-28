@@ -1,5 +1,6 @@
 package Robots;
 
+import Main.MainController;
 import Main.RepairInstruction;
 import Parts.Battery;
 import Parts.Part;
@@ -27,7 +28,7 @@ public class RepairBot extends Bot {
             spareParts[i] = new Part("Legs", Part.conditionNew);
         }
 
-        for (int i = 19; i <=19; i++) {
+        for (int i = 15; i <=19; i++) {
             spareParts[i] = new Part("Arms", Part.conditionNew);
         }
     }
@@ -70,6 +71,34 @@ public class RepairBot extends Bot {
         } else if (avenue() > r.avenue()) {
             faceDirection(West);
             move();
+        }
+    }
+
+    public void doMove() {
+        if (currentJob == null) {
+            currentJob = MainController.getNextRepairInstruction();
+        }
+
+        if (currentJob == null) {
+            randomMove();
+        } else {
+            int sparePartIndex = sparePartAvailable(currentJob.getPartName());
+
+            if (sparePartIndex != -1) {
+                getCloserToRobot(currentJob.getRobot());
+
+                if (street() == currentJob.getRobot().street() && avenue() == currentJob.getRobot().avenue()) {
+                    replacePart(currentJob.getRobot(), sparePartIndex);
+                    System.out.println("Replaced " + currentJob.getPartName());
+
+                    currentJob = null;
+
+                }
+            } else {
+                System.out.println("No " + currentJob.getPartName() + " left - Abandoning current job");
+                currentJob = null;
+                randomMove();
+            }
         }
     }
 

@@ -22,6 +22,7 @@ public class Battery extends Part {
                 setCondition(Part.conditionUsed);
             } else {
                 setCondition(Part.conditionDamaged);
+                System.out.println("Battery is empty");
             }
         }
     }

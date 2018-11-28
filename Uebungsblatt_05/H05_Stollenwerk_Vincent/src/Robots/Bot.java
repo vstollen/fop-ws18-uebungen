@@ -143,6 +143,8 @@ public class Bot extends Robot {
         if (partIndex != -1) {
             Part part = getPart(partIndex);
             part.setCondition(Part.conditionDamaged);
+
+            System.out.println(partName + " just broke");
         }
     }
 }
