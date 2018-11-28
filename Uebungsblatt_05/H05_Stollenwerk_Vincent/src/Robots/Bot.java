@@ -1,5 +1,6 @@
 package Robots;
 
+import Main.MainController;
 import Parts.Battery;
 import Parts.Part;
 import kareltherobot.Robot;
@@ -25,7 +26,7 @@ public class Bot extends Robot {
     public Part getPart(int index) {
         return parts[index];
     }
-    
+
     public void setPart(int index, Part part) {
         parts[index] = part;
     }
@@ -39,5 +40,35 @@ public class Bot extends Robot {
         }
 
         return -1;
+    }
+
+    public void faceDirection(Direction dir) {
+        while (direction() != dir) {
+            turnLeft();
+        }
+    }
+
+    public void randomMove() {
+
+        switch (MainController.getRandomNumber(1, 4)) {
+            case (1):
+                faceDirection(North);
+                break;
+            case (2):
+                faceDirection(South);
+                break;
+            case (3):
+                faceDirection(East);
+                break;
+            case (4):
+                faceDirection(West);
+                break;
+        }
+
+        while (!frontIsClear()) {
+            turnLeft();
+        }
+
+        move();
     }
 }
