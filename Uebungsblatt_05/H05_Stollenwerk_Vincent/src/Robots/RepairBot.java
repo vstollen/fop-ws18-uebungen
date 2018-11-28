@@ -3,6 +3,7 @@ package Robots;
 import Main.RepairInstruction;
 import Parts.Battery;
 import Parts.Part;
+import kareltherobot.Robot;
 
 public class RepairBot extends Bot {
 
@@ -43,4 +44,33 @@ public class RepairBot extends Bot {
 
         return -1;
     }
+
+    public void replacePart(Bot r, int sparePartIndex) {
+
+        int robotPartIndex = r.getPartIndexByName(spareParts[sparePartIndex].getName());
+
+        if (robotPartIndex != -1) {
+
+            Part partHolder = r.getPart(robotPartIndex);
+            r.setPart(robotPartIndex, spareParts[sparePartIndex]);
+            spareParts[sparePartIndex] = partHolder;
+        }
+    }
+
+    public void getCloserToRobot(Robot r) {
+        if (street() < r.street()) {
+            faceDirection(North);
+            move();
+        } else if (street() > r.street()) {
+            faceDirection(South);
+            move();
+        } else if (avenue() < r.avenue()) {
+            faceDirection(East);
+            move();
+        } else if (avenue() > r.avenue()) {
+            faceDirection(West);
+            move();
+        }
+    }
+
 }
