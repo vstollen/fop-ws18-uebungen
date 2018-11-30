@@ -8,6 +8,7 @@ public class Main {
             diceRoll();
         }
 
+        v5();
 
     }
 
@@ -28,5 +29,28 @@ public class Main {
         }
 
         System.out.println((int) Math.ceil(random));
+    }
+
+    private static void v5() {
+        int x = 0;
+
+        while (Math.pow(x, 2) <= 1000) {
+            x++;
+        }
+
+        System.out.println(x);
+
+
+        for (x = 0; Math.pow(x, 2) <= 1000; x++);
+
+        System.out.println(x);
+
+        x = -1;
+
+        do {
+            x++;
+        } while (Math.pow(x, 2) <= 1000);
+
+        System.out.println(x);
     }
 }
