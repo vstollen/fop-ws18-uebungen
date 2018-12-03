@@ -15,6 +15,11 @@ public class Main {
         System.out.println(evenlySpaced(-5, 0, 5));
         System.out.println(evenlySpaced(100, 200, 300));
         System.out.println(evenlySpaced(1, 3, 4));
+
+        int[] sumArray = {3, 4, 1, 9, -5, 4};
+        sumUp(sumArray);
+
+        System.out.println(Arrays.toString(sumArray));
     }
 
     private static void v3() {
@@ -69,6 +74,17 @@ public class Main {
         int distanceLargestMedium = numbers[2] - numbers[1];
 
         return distanceSmallestMedium == distanceLargestMedium;
+    }
+
+    private static void sumUp(int[] a) {
+
+        int sum = 0;
+
+        for (int i = 0; i < a.length; i++) {
+            sum += a[i];
+
+            a[i] = sum;
+        }
     }
 
 }
