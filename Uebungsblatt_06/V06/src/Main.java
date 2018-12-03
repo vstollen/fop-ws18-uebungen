@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Random;
+import java.util.Arrays;
 
 public class Main {
 
@@ -13,6 +12,9 @@ public class Main {
 
         v5();
 
+        System.out.println(evenlySpaced(-5, 0, 5));
+        System.out.println(evenlySpaced(100, 200, 300));
+        System.out.println(evenlySpaced(1, 3, 4));
     }
 
     private static void v3() {
@@ -56,4 +58,17 @@ public class Main {
 
         System.out.println(x);
     }
+
+    private static boolean evenlySpaced(int a, int b, int c) {
+
+        int[] numbers = {a, b, c};
+
+        Arrays.sort(numbers);
+
+        int distanceSmallestMedium = numbers[1] - numbers[0];
+        int distanceLargestMedium = numbers[2] - numbers[1];
+
+        return distanceSmallestMedium == distanceLargestMedium;
+    }
+
 }
