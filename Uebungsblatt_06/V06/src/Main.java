@@ -23,6 +23,12 @@ public class Main {
 
         int[] mirrorArray = {7, 6, 5, 1, 9, 8, 9, 1, 5, 6, 7, 5, 6, 7};
         System.out.println(maxMirror(mirrorArray));
+
+        int[][] mat1 = {{5, 8}, {1, -3}};
+        int[][] mat2 = {{3, 4}, {5, 6}};
+
+        System.out.println(Arrays.toString(matrixMul(mat1, mat2)[0]));
+        System.out.println(Arrays.toString(matrixMul(mat1, mat2)[1]));
     }
 
     private static void v3() {
@@ -122,6 +128,24 @@ public class Main {
         }
 
         return maxMirror;
+    }
+
+    private static int[][] matrixMul(int[][] mat1, int[][] mat2) {
+        if (mat1.length != 2 || mat1[0].length != 2 || mat2.length != 2 || mat2[0].length != 2) {
+            return null;
+        }
+
+        int[][] resultMatrix = new int[2][2];
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    resultMatrix[i][j] += mat1[i][k] * mat2[k][j];
+                }
+            }
+        }
+
+        return resultMatrix;
     }
 
 }
