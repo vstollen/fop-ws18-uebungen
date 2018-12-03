@@ -20,6 +20,9 @@ public class Main {
         sumUp(sumArray);
 
         System.out.println(Arrays.toString(sumArray));
+
+        int[] mirrorArray = {7, 6, 5, 1, 9, 8, 9, 1, 5, 6, 7, 5, 6, 7};
+        System.out.println(maxMirror(mirrorArray));
     }
 
     private static void v3() {
@@ -85,6 +88,40 @@ public class Main {
 
             a[i] = sum;
         }
+    }
+
+    private static int maxMirror(int[] arr) {
+        int maxMirror = 0;
+
+
+        for (int i = 0; i < arr.length; i++) {
+            int leftMarker = i;
+
+            for (int j = 1; j <= arr.length; j++) {
+                int rightMarker = arr.length - j;
+
+                while (rightMarker > leftMarker) {
+
+                    int newMirror = 0;
+
+                    int oldLeftMarker = leftMarker;
+
+                    while (rightMarker >= 0 && arr[rightMarker] == arr[leftMarker]) {
+                        newMirror++;
+
+                        leftMarker++;
+                        rightMarker--;
+                    }
+
+                    maxMirror = Math.max(maxMirror, newMirror);
+
+                    leftMarker = oldLeftMarker;
+                    rightMarker--;
+                }
+            }
+        }
+
+        return maxMirror;
     }
 
 }
