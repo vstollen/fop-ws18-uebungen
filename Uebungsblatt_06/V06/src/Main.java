@@ -3,7 +3,6 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-
         v3();
 
         for (int i = 0; i < 30; i++) {
@@ -29,6 +28,12 @@ public class Main {
 
         System.out.println(Arrays.toString(matrixMul(mat1, mat2)[0]));
         System.out.println(Arrays.toString(matrixMul(mat1, mat2)[1]));
+
+        int[] v14 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+
+        X x = new X();
+
+        System.out.println(Arrays.toString(x.foo(v14)));
     }
 
     private static void v3() {
