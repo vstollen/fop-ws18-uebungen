@@ -58,10 +58,38 @@ public class BayerPattern {
 	}
 
 	// TODO H2.2
+
+	/**
+	 * splits the data array into an array with 3 rgb like color channels and fills in unknown values with -1
+	 * @return rgb like array from bayer pattern data
+	 */
 	public int[][][] splitColorChannels() {
 
-		int[][][] splittedColorChannels = new int[1][2][3];
+		int[][][] splittedColorChannels = new int[getHeight()][getWidth()][3];
 
+		for (int row = 0; row < getHeight(); row++) {
+			for (int column = 0; column < getWidth(); column++) {
+				// Green
+				if ((column + row) % 2 == 0) {
+					splittedColorChannels[row][column][1] = data[row][column];
+
+					splittedColorChannels[row][column][0] = -1;
+					splittedColorChannels[row][column][2] = -2;
+				// Red
+				} else if (row % 2 == 0 && column % 2 == 1) {
+					splittedColorChannels[row][column][0] = data[row][column];
+
+					splittedColorChannels[row][column][1] = -1;
+					splittedColorChannels[row][column][2] = -2;
+				//Blue
+				} else if (row % 2 == 1 && column % 2 == 0) {
+					splittedColorChannels[row][column][2] = data[row][column];
+
+					splittedColorChannels[row][column][0] = -1;
+					splittedColorChannels[row][column][1] = -1;
+				}
+			}
+		}
 		return splittedColorChannels;
 
 	}
