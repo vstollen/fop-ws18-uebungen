@@ -3,6 +3,8 @@ package H2;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BayerPattern {
 	
@@ -74,13 +76,13 @@ public class BayerPattern {
 					splittedColorChannels[row][column][1] = data[row][column];
 
 					splittedColorChannels[row][column][0] = -1;
-					splittedColorChannels[row][column][2] = -2;
+					splittedColorChannels[row][column][2] = -1;
 				// Red
 				} else if (row % 2 == 0 && column % 2 == 1) {
 					splittedColorChannels[row][column][0] = data[row][column];
 
 					splittedColorChannels[row][column][1] = -1;
-					splittedColorChannels[row][column][2] = -2;
+					splittedColorChannels[row][column][2] = -1;
 				//Blue
 				} else if (row % 2 == 1 && column % 2 == 0) {
 					splittedColorChannels[row][column][2] = data[row][column];
@@ -98,10 +100,62 @@ public class BayerPattern {
 	// TODO H2.3
 	public static int[][][] interpolateMissingValues(int[][][] splittedColorChannels) {
 
-		int[][][] interpolated = new int[1][2][3];
+		int[][][] interpolated = new int[splittedColorChannels.length][splittedColorChannels[0].length][3];
 
+		for (int row = 0; row < interpolated.length; row++) {
+			for (int column = 0; column < interpolated[0].length; column++) {
+				for (int color = 0; color < 3; color++) {
+					if (splittedColorChannels[row][column][color] == -1) {
 
+						double total = 0;
+
+						Set<Integer> neightborColors = getNeighborColors(splittedColorChannels, row, column, color);
+
+						for (int colorValue : neightborColors) {
+							total += colorValue;
+						}
+
+						double average = total / neightborColors.size();
+						interpolated[row][column][color] = (int) Math.round(average);
+					} else {
+						interpolated[row][column][color] = splittedColorChannels[row][column][color];
+					}
+				}
+			}
+		}
 		return interpolated;
+	}
+
+	/**
+	 *
+	 * @param splittedColorChannels rgb like 3-dimensional int array
+	 * @param row a pixels row
+	 * @param column a pixels column
+	 * @param color color looked for
+	 * @return Set of all values of the searched color surrounding the pixel
+	 */
+	private static Set<Integer> getNeighborColors(int[][][] splittedColorChannels, int row, int column, int color) {
+		HashSet<Integer> neighbors = new HashSet<>();
+
+		for (int verticalOffset = -1; verticalOffset <= 1; verticalOffset++) {
+			for (int horizontalOffset = -1; horizontalOffset <= 1; horizontalOffset++) {
+
+				int offsetRow = row + verticalOffset;
+				int offsetColumn = column + horizontalOffset;
+
+				boolean isInVerticalBounds = offsetRow >= 0 && offsetRow < splittedColorChannels.length;
+				boolean isInHorizontalBounds = offsetColumn >= 0 && offsetColumn < splittedColorChannels[0].length;
+
+				if (isInVerticalBounds && isInHorizontalBounds && (verticalOffset != 0 || horizontalOffset != 0)) {
+
+					if (splittedColorChannels[offsetRow][offsetColumn][color] != -1) {
+						neighbors.add(splittedColorChannels[offsetRow][offsetColumn][color]);
+					}
+				}
+			}
+		}
+
+		return neighbors;
 	}
 
 }
