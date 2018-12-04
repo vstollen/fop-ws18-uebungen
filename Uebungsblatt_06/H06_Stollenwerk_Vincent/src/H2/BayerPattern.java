@@ -98,6 +98,12 @@ public class BayerPattern {
 
 	
 	// TODO H2.3
+
+	/**
+	 *
+	 * @param splittedColorChannels 3-dimensional png like color array, with -1 as placeholder for onknown values
+	 * @return 3-dimansional png like color array with interpolated missing values
+	 */
 	public static int[][][] interpolateMissingValues(int[][][] splittedColorChannels) {
 
 		int[][][] interpolated = new int[splittedColorChannels.length][splittedColorChannels[0].length][3];
