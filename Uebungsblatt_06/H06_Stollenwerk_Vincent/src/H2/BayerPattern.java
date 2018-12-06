@@ -3,7 +3,9 @@ package H2;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class BayerPattern {
@@ -113,16 +115,16 @@ public class BayerPattern {
 				for (int color = 0; color < 3; color++) {
 					if (splittedColorChannels[row][column][color] == -1) {
 
-						double total = 0;
+						int total = 0;
 
-						Set<Integer> neightborColors = getNeighborColors(splittedColorChannels, row, column, color);
+						List<Integer> neightborColors = getNeighborColors(splittedColorChannels, row, column, color);
 
 						for (int colorValue : neightborColors) {
 							total += colorValue;
 						}
 
-						double average = total / neightborColors.size();
-						interpolated[row][column][color] = (int) Math.round(average);
+						int average = total / neightborColors.size();
+						interpolated[row][column][color] = average;
 					} else {
 						interpolated[row][column][color] = splittedColorChannels[row][column][color];
 					}
@@ -140,8 +142,8 @@ public class BayerPattern {
 	 * @param color color looked for
 	 * @return Set of all values of the searched color surrounding the pixel
 	 */
-	private static Set<Integer> getNeighborColors(int[][][] splittedColorChannels, int row, int column, int color) {
-		HashSet<Integer> neighbors = new HashSet<>();
+	private static List<Integer> getNeighborColors(int[][][] splittedColorChannels, int row, int column, int color) {
+		ArrayList<Integer> neighbors = new ArrayList<>();
 
 		for (int verticalOffset = -1; verticalOffset <= 1; verticalOffset++) {
 			for (int horizontalOffset = -1; horizontalOffset <= 1; horizontalOffset++) {
