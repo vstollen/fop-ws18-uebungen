@@ -1,5 +1,7 @@
 package H3;
 
+import java.util.Arrays;
+
 abstract public class GeneralPolynomial {
 
     private double[] coefficients;
@@ -10,7 +12,14 @@ abstract public class GeneralPolynomial {
      * @param coef coefficients in degree matching descending order
      */
     public GeneralPolynomial(double[] coef) {
-        degree = coef.length - 1;
+
+        coef = removeLeadingZeros(coef);
+
+        if (coef.length > 0) {
+            degree = coef.length - 1;
+        } else {
+            degree = 0;
+        }
         coefficients = coef;
     }
 
@@ -57,5 +66,29 @@ abstract public class GeneralPolynomial {
      * @return anti derivative of the function
      */
     abstract public GeneralPolynomial antiDeriv();
+
+    /**
+     *
+     * @param array array to remove leading zeros from
+     * @return new Array containing the values of the given array after cutting leading zeros
+     */
+    private static double[] removeLeadingZeros(double[] array) {
+
+        int leadingZeros = 0;
+
+        for (double entry : array) {
+            if (entry != 0) {
+                break;
+            }
+
+            leadingZeros++;
+        }
+
+        double[] cleanArray = new double[array.length - leadingZeros];
+
+        System.arraycopy(array, leadingZeros, cleanArray, 0, array.length - leadingZeros);
+
+        return cleanArray;
+    }
 
 }

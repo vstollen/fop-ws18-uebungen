@@ -25,7 +25,13 @@ public class Polynomial extends GeneralPolynomial implements Function {
     @Override
     public Polynomial firstDeriv() {
 
-        double[] newCoeff = new double[getCoefficients().length - 1];
+        int derivCoefficientLength = getCoefficients().length;
+
+        if (derivCoefficientLength > 0) {
+            derivCoefficientLength--;
+        }
+
+        double[] newCoeff = new double[derivCoefficientLength];
 
         for (int i = 0; i < newCoeff.length; i++) {
             newCoeff[i] = getCoefficients()[i] * (getDegree() - i);
