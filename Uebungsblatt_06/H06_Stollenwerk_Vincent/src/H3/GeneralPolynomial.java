@@ -1,7 +1,5 @@
 package H3;
 
-import java.util.Arrays;
-
 abstract public class GeneralPolynomial {
 
     private double[] coefficients;
