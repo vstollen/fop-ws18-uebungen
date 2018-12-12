@@ -52,11 +52,12 @@ public class Term {
 		// Beliebig viele schließende Klammern
 		if (term.matches("\\(*-?\\d+(\\.\\d+)?([\\+\\-\\*\\/]\\(*-?\\d+(\\.\\d+)?\\)*)*\\)*")) {
 			this.term = term;
+		} else {
+			
+			// If term has correct brace usage and only valid characters
+			// There has to be a problem regarding the operator usage
+			throw new InvalidTermException(term, "Incorrect operator usage");
 		}
-		
-		// If term has correct brace usage and only valid characters
-		// There has to be a problem regarding the operator usage
-		throw new InvalidTermException(term, "Incorrect operator usage");
 	}
 	
 	/**
