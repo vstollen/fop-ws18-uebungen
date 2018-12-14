@@ -1,11 +1,8 @@
 package Tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-
-import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,42 +12,96 @@ import Main.Term;
 public class TermTests {
 
 	@Test
-	public void simpleNumberTest() {
-		assertTimeout(Duration.ofSeconds(10), () ->  new Term("-120"));
-	}
-	
-	@Test
-	public void wrongBraceTest() {
-		InvalidTermException exception = assertThrows(InvalidTermException.class, () -> new Term("3*(2 + 7))"));
+	public void simpleNumberConstructorTest() {
 		
-		assertEquals(exception.getMessage(), "Wrong number of closing braces");
-	}
-	
-	@Test
-	public void multipleOperatorTest() {
-		InvalidTermException exception = assertThrows(InvalidTermException.class, () -> new Term("3**2"));
-		
-		assertEquals(exception.getMessage(), "Incorrect operator usage");
-	}
-	
-	@Test
-	public void leadingOperatorTest() {
-		InvalidTermException exception = assertThrows(InvalidTermException.class, () -> new Term("+42"));
-		
-		assertEquals(exception.getMessage(), "Incorrect operator usage");
-	}
-	
-	@Test
-	public void evaluateTermTest() {
 		try {
-			Term term = new Term("54 + (545 * 234 + (4545 - 54)) * 6 + 34");
-			
-			assertEquals("792214", term.getResult());
+			new Term("-1.20");
 		} catch (InvalidTermException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void simpleExpressionConstructorTest() {
 		
+		try {
+			new Term("43+89-32*23+5");
+		} catch (InvalidTermException e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void complexExpressionConstructorTest() {
 		
+		try {
+			new Term("83 + 2384 - 1 * (3 + (2 - 5) * (5 * 2)) - 1");
+		} catch (InvalidTermException e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void emptyTermExceptionTest() {
+		
+		InvalidTermException e = assertThrows(InvalidTermException.class, () -> new Term(" ( ( ))"));
+		
+		assertEquals("Term is empty", e.getMessage());
+		
+		e = assertThrows(InvalidTermException.class, () -> new Term(""));
+		
+		assertEquals("Term is empty", e.getMessage());
+	}
+
+	@Test
+	public void braceExceptionTest() {
+		
+		InvalidTermException e = assertThrows(InvalidTermException.class, () -> new Term("(5/1 + 4.2"));
+		
+		assertEquals("Invalid brace use", e.getMessage());
+	}
+	
+	@Test
+	public void invalidCharacterExceptionTest() {
+		
+		InvalidTermException e = assertThrows(InvalidTermException.class, () -> new Term("3*x + 1"));
+		
+		assertEquals("Contains invalid character", e.getMessage());
+	}
+	
+	@Test
+	public void wrongOperatorExcepionTest() {
+		
+		InvalidTermException e = assertThrows(InvalidTermException.class, () -> new Term("3(-2*8)"));
+		
+		assertEquals("Incorrect operator usage", e.getMessage());
+		
+		e = assertThrows(InvalidTermException.class, () -> new Term("--5+3"));
+		
+		assertEquals("Incorrect operator usage", e.getMessage());
+	}
+	
+	@Test
+	public void multiplayFirstResultTest() throws InvalidTermException {
+		
+		Term term = new Term("3 + 5 * 2");
+		
+		assertEquals("13", term.getResult());
+	}
+	
+	@Test
+	public void braceResultTest() throws InvalidTermException {
+		
+		Term term = new Term(" 3 * (3 - 5 * ( 2 / 6) + (2 - 5))");
+		
+		assertEquals(-5, Double.parseDouble(term.getResult()), 0.1);
+	}
+	
+	@Test
+	public void negativeNumberMinusOperatorResultTest() throws InvalidTermException {
+		
+		Term term = new Term("-3 + (3/-5)-(70.5 + -1-5)");
+		
+		assertEquals("-68.1", term.getResult());
 	}
 }

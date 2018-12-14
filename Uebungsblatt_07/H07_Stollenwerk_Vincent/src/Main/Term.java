@@ -26,7 +26,7 @@ public class Term {
 		
 		// Check for correct braces
 		if (!checkBraces(term)) {
-			throw new InvalidTermException(term, "Wrong number of closing braces");
+			throw new InvalidTermException(term, "Invalid brace use");
 		}
 		
 		// Only valid characters check
@@ -109,7 +109,7 @@ public class Term {
 		Utils.math = new DoubleStringMath();
 		
 		while (!isAtom()) {
-			term = term.replaceAll("\\((\\d*)\\)", "$1");
+			term = term.replaceAll("\\((-?\\d*(.\\d+)?)\\)", "$1");
 			
 			String innerMostExpression = findInnerMostExpression();
 			String result = evaluateSimpleExpression(innerMostExpression);
@@ -126,7 +126,7 @@ public class Term {
 	 * @return true if the term consists of a single number
 	 */
 	private boolean isAtom() {
-		return term.matches("[\\d-]*");
+		return term.matches("-?[\\d]*(.\\d+)?");
 	}
 	
 	/**
