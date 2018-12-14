@@ -39,4 +39,18 @@ public class TermTests {
 		
 		assertEquals(exception.getMessage(), "Incorrect operator usage");
 	}
+	
+	@Test
+	public void evaluateTermTest() {
+		try {
+			Term term = new Term("54 + (545 * 234 + (4545 - 54)) * 6 + 34");
+			
+			assertEquals("792214", term.getResult());
+		} catch (InvalidTermException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 }
