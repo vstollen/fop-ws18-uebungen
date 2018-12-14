@@ -1,6 +1,7 @@
 package Tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import Exceptions.InvalidTermException;
 import Main.Term;
+import Main.TermIO;
 
 public class TermTests {
 
@@ -103,5 +105,15 @@ public class TermTests {
 		Term term = new Term("-3 + (3/-5)-(70.5 + -1-5)");
 		
 		assertEquals("-68.1", term.getResult());
+	}
+	
+	@Test
+	public void TermIOTest() {
+		
+		TermIO termio = new TermIO();
+		
+		assertTrue(termio.readTermsFromFile("testData/input_01.txt"));
+		
+		assertTrue(termio.writeTermResultsToFile("testData/output_01.txt"));
 	}
 }

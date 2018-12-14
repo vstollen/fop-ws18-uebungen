@@ -162,6 +162,8 @@ public class Term {
 		
 		for (int mulOrDivOperation = findMulOrDivOperation(simple); mulOrDivOperation != -1; mulOrDivOperation = findMulOrDivOperation(simple)) {
 			
+			simple = removeMinusOperator(simple);
+			
 			String simpleOperation = null;
 			
 			for (int i = mulOrDivOperation; i < simple.length(); i++) {
@@ -206,7 +208,11 @@ public class Term {
 			
 		}
 		
+		simple = removeMinusOperator(simple);
+		
 		for (int addOperation = findAddOperation(simple); addOperation != -1; addOperation = findAddOperation(simple)) {
+			
+			simple = removeMinusOperator(simple);
 			
 			String simpleOperation = null;
 			
@@ -247,7 +253,11 @@ public class Term {
 	 */
 	private static String removeMinusOperator(String term) {
 		
-		return term.replaceAll("([\\d)])-", "$1+-");
+		String resultTerm = term.replaceAll(Pattern.quote("--"), "+");
+		
+		resultTerm = resultTerm.replaceAll("([\\d)])-", "$1+-");
+		
+		return resultTerm;
 	}
 	
 	/**
