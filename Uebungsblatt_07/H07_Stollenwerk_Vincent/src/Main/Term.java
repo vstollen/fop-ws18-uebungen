@@ -34,6 +34,11 @@ public class Term {
 			throw new InvalidTermException(term, "Contains invalid character");
 		}
 		
+		
+		if (term.matches(".*\\.([^\\d]?|[^\\d].*)") || term.matches("(.*[^\\d])?\\..*")) {
+			throw new InvalidTermException(term, "Contains missplaced dot");
+		}
+		
 		// Check String is a correct term
 		// RegEx "ausgeschrieben":
 		

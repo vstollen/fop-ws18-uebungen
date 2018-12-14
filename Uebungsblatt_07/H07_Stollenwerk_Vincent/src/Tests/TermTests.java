@@ -84,6 +84,18 @@ public class TermTests {
 	}
 	
 	@Test
+	public void randomDotExceptionTest() {
+		
+		InvalidTermException e = assertThrows(InvalidTermException.class, () -> new Term("3."));
+		
+		assertEquals("Contains missplaced dot", e.getMessage());
+		
+		e = assertThrows(InvalidTermException.class, () -> new Term(".5"));
+		
+		assertEquals("Contains missplaced dot", e.getMessage());
+	}
+	
+	@Test
 	public void multiplayFirstResultTest() throws InvalidTermException {
 		
 		Term term = new Term("3 + 5 * 2");
