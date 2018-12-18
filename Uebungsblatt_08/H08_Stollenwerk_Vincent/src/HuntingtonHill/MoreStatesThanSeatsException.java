@@ -8,5 +8,7 @@ package HuntingtonHill;
 @SuppressWarnings("serial")
 public class MoreStatesThanSeatsException extends Exception {
 	
-
+	public MoreStatesThanSeatsException() {
+		super("There are more States than Seats available!");
+	}
 }

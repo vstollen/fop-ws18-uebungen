@@ -28,7 +28,10 @@ public class State {
 	}
 
 	public double priority() {
-		return 0;
+		
+		double priority = population / Math.sqrt(currentSeats*(currentSeats+1));
+		
+		return priority;
 	}
 
 }
