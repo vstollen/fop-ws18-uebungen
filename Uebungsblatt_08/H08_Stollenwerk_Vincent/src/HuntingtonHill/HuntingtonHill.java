@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 /**
  * class to model the Huntington-Hill-Method
@@ -28,8 +29,8 @@ public class HuntingtonHill {
 
 			String line;
 			while ((line = in.readLine()) != null) {
-				// TODO: line represents one row of the .txt file
-				
+				String[] lineInfo = line.split(Pattern.quote(";"));
+				states.put(lineInfo[0], new State(Integer.parseInt(lineInfo[1])));
 			}
 
 			in.close();
