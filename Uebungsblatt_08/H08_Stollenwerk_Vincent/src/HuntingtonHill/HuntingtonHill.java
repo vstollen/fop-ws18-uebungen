@@ -100,7 +100,37 @@ public class HuntingtonHill {
 	 */
 	public String printDistribution() {
 		
-		return "";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Distributed ").append(H).append(" seats to ").append(states.size()).append(" states.\n\n");
+		
+		PriorityQueue<Entry<String, State>> seatQueue = new PriorityQueue<>(new Comparator<Entry<String, State>>() {
+
+			@Override
+			public int compare(Entry<String, State> state1, Entry<String, State> state2) {
+				
+				if (state1.getValue().getCurrentSeats() > state2.getValue().getCurrentSeats()) {
+					return -1;
+				}
+				
+				if (state1.getValue().getCurrentSeats() < state2.getValue().getCurrentSeats()) {
+					return 1;
+				}
+				
+				return state1.getKey().compareTo(state2.getKey());
+			}
+		});
+		
+		seatQueue.addAll(states.entrySet());
+		
+		while(!seatQueue.isEmpty()) {
+			
+			Entry<String, State> nextState = seatQueue.poll();
+			
+			sb.append(nextState.getKey()).append(": ").append(nextState.getValue().getCurrentSeats()).append("\n");
+		}
+		
+		return sb.toString();
 
 	}
 	

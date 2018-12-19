@@ -48,6 +48,8 @@ public class HuntingtonHillStudentTests {
 		hh.distributeSeats();
 		assertEquals(2, hh.getStates().get("Washington").getCurrentSeats());
 		assertEquals(1, hh.getStates().get("Montana").getCurrentSeats());
+		
+		System.out.println(hh.printDistribution());
 	}
 
 	@Test
