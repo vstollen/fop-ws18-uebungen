@@ -23,10 +23,16 @@ public class State {
 		return this.currentSeats;
 	}
 
+	/**
+	 * Adds 1 to current seats
+	 */
 	public void addSeat() {
 		this.currentSeats++;
 	}
 	
+	/**
+	 * @return states priority calculated based of population and current seats
+	 */
 	public double priority() {
 		
 		double priority = population / Math.sqrt(currentSeats*(currentSeats+1));
