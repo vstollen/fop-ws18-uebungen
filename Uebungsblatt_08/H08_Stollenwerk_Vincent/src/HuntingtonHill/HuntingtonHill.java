@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.regex.Pattern;
 
 /**
@@ -49,6 +51,46 @@ public class HuntingtonHill {
 	 * @throws MoreStatesThanSeatsException
 	 */
 	public void distributeSeats() throws MoreStatesThanSeatsException {
+		
+		int remainingSeats = H;
+		
+		if (remainingSeats < states.size()) {
+			throw new MoreStatesThanSeatsException();
+		}
+		
+		// One initial Seat
+		for (State s : states.values()) {
+			s.addSeat();
+			remainingSeats--;
+		}
+		
+		PriorityQueue<State> priorityQueue = new PriorityQueue<>(new Comparator<State>() {
+
+			@Override
+			public int compare(State state1, State state2) {
+				
+				if (state1.priority() > state2.priority()) {
+					return -1;
+				}
+				
+				if (state1.priority() < state2.priority()) {
+					return 1;
+				}
+				
+				return 0;
+			}
+		});
+		
+		priorityQueue.addAll(states.values());
+		
+		while (remainingSeats > 0) {
+			State prioState = priorityQueue.poll();
+			
+			prioState.addSeat();
+			remainingSeats--;
+			
+			priorityQueue.add(prioState);
+		}
 		
 	}
 	
