@@ -78,5 +78,45 @@ public class EmergencyTest {
 		assertEquals(correctList, internalList);
 	}
 	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void priorityQueueDequeueTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		PriorityQueue<GovernmentEmployee> testQueue = new PriorityQueue<>();
+		
+		testQueue.enqueue(nielsen);
+		testQueue.enqueue(devos);
+		testQueue.enqueue(trump);
+		
+		assertEquals(trump, testQueue.dequeue());
+		
+		Field internalListField = PriorityQueue.class.getDeclaredField("queue");
+		internalListField.setAccessible(true);
+		LinkedList<GovernmentEmployee> internalList = (LinkedList<GovernmentEmployee>) internalListField.get(testQueue);
+		
+		LinkedList<GovernmentEmployee> resultingList = new LinkedList<>();
+		
+		resultingList.add(nielsen);
+		resultingList.add(devos);
+		
+		assertEquals(resultingList, internalList);
+		
+		
+		testQueue = new PriorityQueue<>();
+		
+		testQueue.enqueue(hatch);
+		testQueue.enqueue(ryan);
+		testQueue.enqueue(devos);
+		
+		assertEquals(devos, testQueue.dequeue());
+		
+		internalList = (LinkedList<GovernmentEmployee>) internalListField.get(testQueue);
+		
+		resultingList = new LinkedList<>();
+		
+		resultingList.add(hatch);
+		resultingList.add(ryan);
+		
+		assertEquals(resultingList, internalList);
+	}
 
 }
