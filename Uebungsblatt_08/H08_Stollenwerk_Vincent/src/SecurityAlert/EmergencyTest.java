@@ -118,5 +118,22 @@ public class EmergencyTest {
 		
 		assertEquals(resultingList, internalList);
 	}
+	
+	@Test
+	public void priorityQueueGetSizeTest() {
+		PriorityQueue<GovernmentEmployee> testQueue = new PriorityQueue<>();
+		
+		assertEquals(0, testQueue.getSize());
+		
+		testQueue.enqueue(devos);
+		testQueue.enqueue(nielsen);
+		testQueue.enqueue(pompeo);
+		
+		assertEquals(3, testQueue.getSize());
+		
+		testQueue.dequeue();
+		
+		assertEquals(2, testQueue.getSize());
+	}
 
 }
