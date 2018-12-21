@@ -51,5 +51,20 @@ public class Other extends GovernmentEmployee {
 		return sb.toString();
 	}
 	
+	@Override
+	public boolean equals(Object otherObject) {
+	    // Check if we were not passed a valid reference
+	    if(otherObject == null) {
+	        return false;
+	    }
+	    // Check if the other class is not the same as our class
+	    if(!this.getClass().equals(otherObject.getClass())) {
+	        return false;
+	    }
+
+	    // Casting the Object to a reference of our type (for convenience)
+	    Other other = (Other) otherObject;
+	    return (this.sex == other.sex && this.name == other.name);
+	}
 
 }
