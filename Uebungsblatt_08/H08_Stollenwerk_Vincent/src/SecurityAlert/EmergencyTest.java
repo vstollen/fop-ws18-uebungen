@@ -13,10 +13,18 @@ import org.junit.jupiter.api.Test;
 public class EmergencyTest {
 	
 	private EmergencyQueue<GovernmentEmployee> emergency;
+	private Field internalQueueField;
+	private Field internalListField;
 	
 	@BeforeEach
-	void init() {
+	void init() throws NoSuchFieldException {
 		emergency = new EmergencyQueue<GovernmentEmployee>();
+		
+		internalQueueField = EmergencyQueue.class.getDeclaredField("queue");
+		internalQueueField.setAccessible(true);
+		
+		internalListField = PriorityQueue.class.getDeclaredField("queue");
+		internalListField.setAccessible(true);
 	}
 	
 	// TEST DATA
@@ -46,8 +54,6 @@ public class EmergencyTest {
 		testQueue.enqueue(hatch);
 		testQueue.enqueue(chao);
 		
-		Field internalListField = PriorityQueue.class.getDeclaredField("queue");
-		internalListField.setAccessible(true);
 		LinkedList<GovernmentEmployee> internalList = (LinkedList<GovernmentEmployee>) internalListField.get(testQueue);
 		
 		LinkedList<GovernmentEmployee> correctList = new LinkedList<>();
@@ -91,8 +97,6 @@ public class EmergencyTest {
 		
 		assertEquals(trump, testQueue.dequeue());
 		
-		Field internalListField = PriorityQueue.class.getDeclaredField("queue");
-		internalListField.setAccessible(true);
 		LinkedList<GovernmentEmployee> internalList = (LinkedList<GovernmentEmployee>) internalListField.get(testQueue);
 		
 		LinkedList<GovernmentEmployee> resultingList = new LinkedList<>();
@@ -181,8 +185,6 @@ public class EmergencyTest {
 		testQueue.enqueue(chao);
 		testQueue.addToHeadOfPriorityClass(pompeo);
 		
-		Field internalListField = PriorityQueue.class.getDeclaredField("queue");
-		internalListField.setAccessible(true);
 		LinkedList<GovernmentEmployee> internalList = (LinkedList<GovernmentEmployee>) internalListField.get(testQueue);
 		
 		LinkedList<GovernmentEmployee> resultingList = new LinkedList<>();
@@ -244,9 +246,7 @@ public class EmergencyTest {
 		
 		assertEquals(resultingMessage.toString(), baOutputStream.toString());
 		
-		Field internalListField = EmergencyQueue.class.getDeclaredField("queue");
-		internalListField.setAccessible(true);
-		PriorityQueue<GovernmentEmployee> internalQueue = (PriorityQueue<GovernmentEmployee>) internalListField.get(emergency);
+		PriorityQueue<GovernmentEmployee> internalQueue = (PriorityQueue<GovernmentEmployee>) internalQueueField.get(emergency);
 		
 		assertEquals(2, internalQueue.getSize());
 		
@@ -267,7 +267,7 @@ public class EmergencyTest {
 		
 		assertEquals(resultingMessage.toString(), baOutputStream.toString());
 		
-		internalQueue = (PriorityQueue<GovernmentEmployee>) internalListField.get(emergency);
+		internalQueue = (PriorityQueue<GovernmentEmployee>) internalQueueField.get(emergency);
 		
 		assertEquals(0, internalQueue.getSize());
 	}
@@ -319,6 +319,55 @@ public class EmergencyTest {
 		resultingMessage.append(pompeo.getTitle()).append(" was rescued\n");
 		
 		assertEquals(resultingMessage.toString(), baOutputStream.toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void emergencyQueueEnqueueTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		
+		// First Test
+		emergency.enqueue(chao);
+		emergency.enqueue(devos);
+		emergency.enqueue(hatch);
+		emergency.enqueue(nielsen);
+		
+		PriorityQueue<GovernmentEmployee> internalQueue = (PriorityQueue<GovernmentEmployee>) internalQueueField.get(emergency);
+		
+		LinkedList<GovernmentEmployee> internalList = (LinkedList<GovernmentEmployee>) internalListField.get(internalQueue);
+		
+		PriorityQueue<GovernmentEmployee> resultingQueue = new PriorityQueue<>();
+		
+		resultingQueue.enqueue(chao);
+		resultingQueue.enqueue(devos);
+		resultingQueue.enqueue(hatch);
+		resultingQueue.enqueue(nielsen);
+		
+		LinkedList<GovernmentEmployee> resultingList = (LinkedList<GovernmentEmployee>) internalListField.get(resultingQueue);
+		
+		assertEquals(resultingList, internalList);
+		
+		// Second Test
+		emergency = new EmergencyQueue<>();
+		
+		emergency.enqueue(trump);
+		emergency.enqueue(sessions);
+		emergency.enqueue(ryan);
+		emergency.enqueue(pompeo);
+		
+		internalQueue = (PriorityQueue<GovernmentEmployee>) internalQueueField.get(emergency);
+		
+		internalList = (LinkedList<GovernmentEmployee>) internalListField.get(internalQueue);
+		
+		resultingQueue = new PriorityQueue<>();
+		
+		resultingQueue.enqueue(trump);
+		resultingQueue.enqueue(sessions);
+		resultingQueue.enqueue(ryan);
+		resultingQueue.enqueue(pompeo);
+		
+		resultingList = (LinkedList<GovernmentEmployee>) internalListField.get(resultingQueue);
+		
+		assertEquals(resultingList, internalList);
 	}
 
 }
