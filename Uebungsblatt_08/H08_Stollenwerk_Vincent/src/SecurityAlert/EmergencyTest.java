@@ -402,5 +402,43 @@ public class EmergencyTest {
 		
 		assertEquals(expectedQueue.toString(), emergency.toString());
 	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void securityAgencyTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		
+		SecurityAgency securityAgency = new SecurityAgency();
+		
+		securityAgency.add(devos);
+		securityAgency.add(nielsen);
+		securityAgency.add(pompeo);
+		securityAgency.add(sessions);
+		securityAgency.add(chao);
+		securityAgency.add(hatch);
+		securityAgency.add(ryan);
+		securityAgency.add(trump);
+		
+		Field internalEmergencyQueueField = SecurityAgency.class.getDeclaredField("emergency");
+		internalEmergencyQueueField.setAccessible(true);
+		EmergencyQueue<GovernmentEmployee> internalQueue = (EmergencyQueue<GovernmentEmployee>) internalEmergencyQueueField.get(securityAgency);
+		
+		System.out.println("=============Security Agency Test==============");
+		
+		securityAgency.changeAlertLevel(AlertLevel.GUARDED);
+		internalQueue.rescue(20);
+		System.out.println("===============================================");
+		
+		securityAgency.changeAlertLevel(AlertLevel.ELEVATED);
+		internalQueue.rescue(20);
+		System.out.println("===============================================");
+		
+		securityAgency.changeAlertLevel(AlertLevel.HIGH);
+		internalQueue.rescue(20);
+		System.out.println("===============================================");
+		
+		securityAgency.changeAlertLevel(AlertLevel.SEVERE);
+		internalQueue.rescue(20);
+		System.out.println("======================End======================");
+	}
 
 }

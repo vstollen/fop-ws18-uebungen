@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class SecurityAgency {
 
-	private ArrayList<GovernmentEmployee> emps;
-	private EmergencyQueue<GovernmentEmployee> emergency;
+	private ArrayList<GovernmentEmployee> emps = new ArrayList<>();
+	private EmergencyQueue<GovernmentEmployee> emergency = new EmergencyQueue<>();
 	private AlertLevel al = AlertLevel.LOW;
 
 	/**
