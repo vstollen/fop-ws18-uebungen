@@ -135,5 +135,37 @@ public class EmergencyTest {
 		
 		assertEquals(2, testQueue.getSize());
 	}
+	
+	@Test
+	public void priorityQueueToStringTest() {
+		PriorityQueue<GovernmentEmployee> testQueue = new PriorityQueue<>();
+		
+		assertEquals("", testQueue.toString());
+		
+		testQueue.enqueue(hatch);
+		testQueue.enqueue(ryan);
+		testQueue.enqueue(trump);
+		testQueue.enqueue(nielsen);
+		
+		StringBuilder resultingStringBuilder = new StringBuilder();
+		
+		resultingStringBuilder.append("#0: ").append(trump.toString()).append("\n");
+		resultingStringBuilder.append("#1: ").append(nielsen.toString()).append("\n");
+		resultingStringBuilder.append("#2: ").append(hatch.toString()).append("\n");
+		resultingStringBuilder.append("#3: ").append(ryan.toString()).append("\n");
+		
+		assertEquals(resultingStringBuilder.toString(), testQueue.toString());
+		
+		testQueue.dequeue();
+		testQueue.addToHeadOfPriorityClass(ryan);
+		
+		resultingStringBuilder = new StringBuilder();
+		
+		resultingStringBuilder.append("#0: ").append(nielsen.toString()).append("\n");
+		resultingStringBuilder.append("#1: ").append(ryan.toString()).append("\n");
+		resultingStringBuilder.append("#2: ").append(hatch.toString()).append("\n");
+		
+		assertEquals(resultingStringBuilder.toString(), testQueue.toString());
+	}
 
 }
