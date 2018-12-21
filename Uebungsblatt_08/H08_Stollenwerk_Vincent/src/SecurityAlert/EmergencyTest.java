@@ -369,5 +369,38 @@ public class EmergencyTest {
 		
 		assertEquals(resultingList, internalList);
 	}
+	
+	@Test
+	public void EmergencyQueueToStringTest() {
+		
+		// First Test
+		emergency.enqueue(chao);
+		emergency.enqueue(nielsen);
+		emergency.enqueue(pompeo);
+		
+		PriorityQueue<GovernmentEmployee> expectedQueue = new PriorityQueue<>();
+		
+		expectedQueue.enqueue(chao);
+		expectedQueue.enqueue(nielsen);
+		expectedQueue.enqueue(pompeo);
+		
+		assertEquals(expectedQueue.toString(), emergency.toString());
+		
+		
+		// Second Test
+		emergency.enqueue(trump);
+		emergency.enqueue(hatch);
+		emergency.rescue(3);
+		emergency.enqueue(trump);
+		
+		expectedQueue.enqueue(trump);
+		expectedQueue.enqueue(hatch);
+		for (int i = 0 ; i < 3; i ++) {
+			expectedQueue.dequeue();
+		}
+		expectedQueue.enqueue(trump);
+		
+		assertEquals(expectedQueue.toString(), emergency.toString());
+	}
 
 }
