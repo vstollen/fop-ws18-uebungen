@@ -271,5 +271,54 @@ public class EmergencyTest {
 		
 		assertEquals(0, internalQueue.getSize());
 	}
+	
+	@Test
+	public void emergencyQueueChooseDesignatedSurvivorTest() {
+		
+		// First Test
+		emergency.enqueue(devos);
+		emergency.enqueue(chao);
+		emergency.enqueue(nielsen);
+		emergency.chooseDesignatedSurvivor(nielsen);
+		
+		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
+		PrintStream stringStream = new PrintStream(baOutputStream);
+		PrintStream sysOut = System.out;
+		System.setOut(stringStream);
+		        
+		emergency.rescue(3);
+		        
+		System.out.flush();
+		System.setOut(sysOut);
+		
+		StringBuilder resultingMessage = new StringBuilder();
+		resultingMessage.append(nielsen.getTitle()).append(" was rescued\n");
+		resultingMessage.append(devos.getTitle()).append(" was rescued\n");
+		resultingMessage.append(chao.getTitle()).append(" was rescued\n");
+		
+		assertEquals(resultingMessage.toString(), baOutputStream.toString());
+		
+		// Second Test
+		emergency.chooseDesignatedSurvivor(pompeo);
+		emergency.chooseDesignatedSurvivor(devos);
+		emergency.chooseDesignatedSurvivor(chao);
+		
+		baOutputStream = new ByteArrayOutputStream();
+		stringStream = new PrintStream(baOutputStream);
+		sysOut = System.out;
+		System.setOut(stringStream);
+		        
+		emergency.rescue(3);
+		        
+		System.out.flush();
+		System.setOut(sysOut);
+		
+		resultingMessage = new StringBuilder();
+		resultingMessage.append(chao.getTitle()).append(" was rescued\n");
+		resultingMessage.append(devos.getTitle()).append(" was rescued\n");
+		resultingMessage.append(pompeo.getTitle()).append(" was rescued\n");
+		
+		assertEquals(resultingMessage.toString(), baOutputStream.toString());
+	}
 
 }
