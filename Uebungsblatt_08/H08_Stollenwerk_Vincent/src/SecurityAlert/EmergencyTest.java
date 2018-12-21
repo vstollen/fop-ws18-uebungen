@@ -2,6 +2,8 @@ package SecurityAlert;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 
@@ -212,6 +214,62 @@ public class EmergencyTest {
 		resultingList.add(sessions);
 		
 		assertEquals(resultingList, internalList);
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void emergencyQueueRescueTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		
+		//First Test
+		emergency.enqueue(chao);
+		emergency.enqueue(devos);
+		emergency.enqueue(sessions);
+		emergency.enqueue(nielsen);
+		emergency.enqueue(trump);
+		
+		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
+		PrintStream stringStream = new PrintStream(baOutputStream);
+		PrintStream sysOut = System.out;
+		System.setOut(stringStream);
+		        
+		emergency.rescue(3);
+		        
+		System.out.flush();
+		System.setOut(sysOut);
+		
+		StringBuilder resultingMessage = new StringBuilder();
+		resultingMessage.append(trump.getTitle()).append(" was rescued\n");
+		resultingMessage.append(chao.getTitle()).append(" was rescued\n");
+		resultingMessage.append(devos.getTitle()).append(" was rescued\n");
+		
+		assertEquals(resultingMessage.toString(), baOutputStream.toString());
+		
+		Field internalListField = EmergencyQueue.class.getDeclaredField("queue");
+		internalListField.setAccessible(true);
+		PriorityQueue<GovernmentEmployee> internalQueue = (PriorityQueue<GovernmentEmployee>) internalListField.get(emergency);
+		
+		assertEquals(2, internalQueue.getSize());
+		
+		// Second Test
+		baOutputStream = new ByteArrayOutputStream();
+		stringStream = new PrintStream(baOutputStream);
+		sysOut = System.out;
+		System.setOut(stringStream);
+		        
+		emergency.rescue(100);
+		        
+		System.out.flush();
+		System.setOut(sysOut);
+		
+		resultingMessage = new StringBuilder();
+		resultingMessage.append(nielsen.getTitle()).append(" was rescued\n");
+		resultingMessage.append(sessions.getTitle()).append(" was rescued\n");
+		
+		assertEquals(resultingMessage.toString(), baOutputStream.toString());
+		
+		internalQueue = (PriorityQueue<GovernmentEmployee>) internalListField.get(emergency);
+		
+		assertEquals(0, internalQueue.getSize());
 	}
 
 }
