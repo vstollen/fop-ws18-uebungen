@@ -1,5 +1,6 @@
 package H1;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
@@ -9,13 +10,51 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 	public SelfOrganizingLinkedList(ReorganizingAlgorithm ra) {
 		this.ra = ra;
 	}
-	
+
 	public T search(Predicate<T> predicate) {
-		/**
-		 * TODO H1.1, H1.2, H1.3
-		 */
+
+		switch (ra) {
+			case MOVETOFRONT:
+				return moveToFrontSearch(predicate);
+		}
 		return null;
 	}
 
-	
+	private T moveToFrontSearch(Predicate<T> predicate) {
+
+		ListItem<T> previousItem = null;
+		ListItem<T> pointer = head;
+
+		while (pointer != null) {
+			if (predicate.test(pointer.key)) {
+				if (previousItem != null) {
+					previousItem.next = pointer.next;
+					pointer.next = head;
+					head = pointer;
+				}
+				return pointer.key;
+			}
+
+			previousItem = pointer;
+			pointer = pointer.next;
+		}
+
+		return null;
+	}
+
+	@Override
+	public String toString() {
+
+		ListItem<T> pointer = head;
+
+		StringBuilder sb = new StringBuilder();
+
+		while (pointer != null) {
+			sb.append(pointer.key.toString()).append(" ");
+
+			pointer = pointer.next;
+		}
+
+		return sb.toString();
+	}
 }
