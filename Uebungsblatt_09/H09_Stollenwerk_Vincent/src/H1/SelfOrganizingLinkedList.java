@@ -1,6 +1,5 @@
 package H1;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
@@ -17,12 +16,14 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 		switch (ra) {
 			case MOVETOFRONT:
 				return moveToFrontSearch(predicate);
+			case TRANSPOSE:
+				return transposeSearch(predicate);
 		}
 		return null;
 	}
 
 	/**
-	 * Searches the list and moves the found list item to the front
+	 * Searches the list and moves the found list item to head
 	 * @param predicate
 	 * @return First list item matching the predicate
 	 */
@@ -46,6 +47,55 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Searches the list and moves the found list item one position to the front
+	 * @param predicate
+	 * @return First list item matching the predicate
+	 */
+	private T transposeSearch(Predicate<T> predicate) {
+
+		if (head == null) {
+			return null;
+		}
+
+		ListItem<T> secondPreviousItem = null;
+		ListItem<T> pointer = head.next;
+
+		if (predicate.test(head.key)) {
+			return head.key;
+		}
+
+		while (pointer != null) {
+			if (predicate.test(pointer.key)) {
+				if (secondPreviousItem != null) {
+
+					ListItem<T> previousItem = secondPreviousItem.next;
+					previousItem.next = pointer.next;
+
+					pointer.next = previousItem;
+
+					secondPreviousItem.next = pointer;
+				} else {
+
+					head.next = pointer.next;
+
+					pointer.next = head;
+
+					head = pointer;
+				}
+
+				return pointer.key;
+			}
+
+			secondPreviousItem = secondPreviousItem == null ? head : secondPreviousItem.next;
+			pointer = pointer.next;
+		}
+
+
+		return null;
+
 	}
 
 	@Override
