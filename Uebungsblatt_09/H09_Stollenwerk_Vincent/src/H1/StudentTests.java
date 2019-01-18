@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SuppressWarnings("Duplicates")
-public class StudentTests {
+class StudentTests {
 
     @Test
     void moveToFrontSearchTest() {
