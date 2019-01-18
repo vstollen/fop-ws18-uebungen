@@ -1,5 +1,6 @@
 package H1;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
@@ -18,6 +19,8 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 				return moveToFrontSearch(predicate);
 			case TRANSPOSE:
 				return transposeSearch(predicate);
+			case COUNT:
+				return countSearch(predicate);
 		}
 		return null;
 	}
@@ -96,6 +99,56 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 
 		return null;
 
+	}
+
+	/**
+	 * Searches the list and keeps it ordered by search count
+	 * @param predicate
+	 * @return First list item matching the predicate
+	 */
+	private T countSearch(Predicate<T> predicate) {
+
+		ListItem<T> nextHigherPriorityItem = null;
+		ListItem<T> previousItem = null;
+
+		if (head == null) {
+			return null;
+		}
+
+		ListItem<T> pointer = head;
+
+		while (pointer != null) {
+
+			if (previousItem != null && pointer.counter < previousItem.counter) {
+				nextHigherPriorityItem = previousItem;
+			}
+
+			if (predicate.test(pointer.key)) {
+
+				pointer.counter++;
+
+				if (previousItem != null) {
+					previousItem.next = pointer.next;
+				} else {
+					head = pointer.next;
+				}
+
+				if (nextHigherPriorityItem == null) {
+					pointer.next = head;
+					head = pointer;
+				} else {
+					pointer.next = nextHigherPriorityItem.next;
+					nextHigherPriorityItem.next = pointer;
+				}
+
+				return pointer.key;
+			}
+
+			previousItem = pointer;
+			pointer = pointer.next;
+		}
+
+		return null;
 	}
 
 	@Override
