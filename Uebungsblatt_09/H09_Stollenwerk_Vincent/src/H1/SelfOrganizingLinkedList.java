@@ -11,6 +11,7 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 		this.ra = ra;
 	}
 
+	@Override
 	public T search(Predicate<T> predicate) {
 
 		switch (ra) {
@@ -20,6 +21,11 @@ public class SelfOrganizingLinkedList<T> extends SimpleLinkedList<T> {
 		return null;
 	}
 
+	/**
+	 * Searches the list and moves the found list item to the front
+	 * @param predicate
+	 * @return First list item matching the predicate
+	 */
 	private T moveToFrontSearch(Predicate<T> predicate) {
 
 		ListItem<T> previousItem = null;
