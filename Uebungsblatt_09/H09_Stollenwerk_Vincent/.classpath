@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="lib/junit-jupiter-api-5.4.0-M1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-jupiter-api-5.4.0-M1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

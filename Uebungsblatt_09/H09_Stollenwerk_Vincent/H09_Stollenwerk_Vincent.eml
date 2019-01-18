@@ -2,6 +2,9 @@
 <component inheritJdk="true">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="junit-jupiter-api-5.4.0-M1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/junit-jupiter-api-5.4.0-M1.jar!/"/>
+	</lib>
 	<lib name="JUnit5.3" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/junit-jupiter-api-5.4.0-M1.jar!/"/>
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/apiguardian-api-1.0.0.jar!/"/>
