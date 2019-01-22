@@ -20,9 +20,9 @@
 ;; Returns: a path from origin to dest in the given graph
 ;; Precondition: cycle-free graph
 (define (find-route origin dest graph) 
- false)
-
-
+  (if (member (graph-nodes graph) dest)
+      true
+      )
 
 ;; Tests
 (check-expect (find-route B F G1) (list "B" "E" "F"))
