@@ -20,9 +20,25 @@
 ;; Returns: a path from origin to dest in the given graph
 ;; Precondition: cycle-free graph
 (define (find-route origin dest graph) 
-  (if (member (graph-nodes graph) dest)
-      true
-      )
+  (if (equal? origin dest)
+      (list (node-name dest))
+      (cond
+        [(empty? (node-neighbors origin)) false]
+        ;; Type: (list of String) -> list of String
+        ;; Returns: The given rout after adding the origin to the front, if rout is false tries another path
+        [else ((lambda (route)
+                (if (equal? false route)
+                    (find-route (make-node (node-name origin) (rest (node-neighbors origin))))
+                    (cons (node-name origin) route)))
+               ;; Type: node -> boolean
+               ;; Returns: All graph notes matching the name of the first neighbor of origin
+              (find-route (first (filter (lambda (node)
+                                    (if (equal? (node-name node) (first (node-neighbors origin)))
+                                        true
+                                        false))
+                                  (graph-nodes graph)))
+                          dest
+                          graph))])))
 
 ;; Tests
 (check-expect (find-route B F G1) (list "B" "E" "F"))
