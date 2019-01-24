@@ -26,6 +26,11 @@
 ;; Returns: the number off solutions of the n-queens problem for board size nxn
 (define (n-queens n) (/ (queens-total n n empty 0 0) (factorial n)))
 
+;; n-queens student tests
+(check-expect (n-queens 2) 0)
+(check-expect (n-queens 7) 40)
+(check-expect (n-queens 5) 10)
+
 ;; Type: natural natural (list of queen) natural natural -> natural
 ;; Returns: the number of solutions to put the left queens on the board of size field-size*field-size
 ;;          different queens at the same position are counted as multiple solutions
@@ -39,6 +44,11 @@
                  0
                  (queens-total field-size (- queens-left 1) (cons (make-queen x y) queens) 0 0)))]))
 
+;; queens-total student tests
+(check-expect (queens-total 3 3 empty 0 0) 0)
+(check-expect (queens-total 4 4 empty 0 0) 48)
+(check-expect (queens-total 7 7 empty 0 0) 201600)
+
 ;; Type: natural -> natural
 ;; Returns: factorial of n
 (define (factorial n)
@@ -46,4 +56,7 @@
       1
       (* n (factorial (- n 1)))))
 
-(check-expect (n-queens 7) 40)
+;; factorial student tests
+(check-expect (factorial 0) 1)
+(check-expect (factorial 14) 87178291200)
+(check-expect (factorial 9) 362880)
