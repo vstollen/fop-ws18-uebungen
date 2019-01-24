@@ -15,7 +15,6 @@
 
 (define G1 (make-graph "G1" (list A B C D E F G)))
 
-;; TODO
 ;; Type: node node graph -> (list of String)
 ;; Returns: a path from origin to dest in the given graph
 ;; Precondition: cycle-free graph
@@ -39,6 +38,23 @@
                                   (graph-nodes graph)))
                           dest
                           graph))])))
+
+;; Student tests
+(define A-S (make-node "A-S" (list "B-S" "C-S")))
+(define B-S (make-node "B-S" (list "E-S")))
+(define C-S (make-node "C-S" empty))
+(define D-S (make-node "D-S" (list "C-S")))
+(define E-S (make-node "E-S" (list "D-S")))
+(define F-S (make-node "F-S" (list "E-S")))
+
+(define G2 (make-graph "G2" (list A-S B-S C-S D-S E-S F-S)))
+
+(check-expect (find-route A A G1) (list "A"))
+(check-expect (find-route F-S C-S G2) (list "F-S" "E-S" "D-S" "C-S"))
+(check-expect (member (find-route A-S C-S G2) (list
+                                            (list "A-S" "C-S")
+                                            (list "A-S" "B-S" "E-S" "D-S" "C-S")))
+              true)
 
 ;; Tests
 (check-expect (find-route B F G1) (list "B" "E" "F"))
