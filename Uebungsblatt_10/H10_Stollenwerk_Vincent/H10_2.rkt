@@ -31,8 +31,28 @@
 ;; Type: (list of tutor) number (tutor -> number) -> (list of string)
 ;; Returns: the best combination of tutors that have a total salary less than the number passed in, regarding the given criterion
 (define (choose-tutors possible-tutors max-budget criterion)
-   empty
- )
+  (map tutor-name (choose-tutors-as-tutor-list possible-tutors max-budget criterion)))
+
+;; Type: (list of tutor) number (tutor -> number) -> (list of tutor)
+;; Returns: the best combination of tutors that have a total salary less than the number passed in, regarding the given criterion
+(define (choose-tutors-as-tutor-list possible-tutors max-budget criterion)
+     (cond
+       [(empty? possible-tutors) empty]
+       [(<= max-budget 0) empty]
+       [else
+        ;; Type: (list of tutor) (list of tutor) number -> (list of tutor)
+        ;; Returns: the better list of tutors, regarding the given criterion after adding list-b-init to list-b's total criterion value
+        ((lambda (tutor-list-a tutor-list-b list-b-init)
+           (if (>= (foldr + 0 (map criterion tutor-list-a)) (foldr + list-b-init (map criterion tutor-list-b)))
+               tutor-list-a
+               (cons (first possible-tutors) tutor-list-b)))
+         (choose-tutors-as-tutor-list (rest possible-tutors) max-budget criterion)
+         (if (>= max-budget (tutor-salary (first possible-tutors)))
+             (choose-tutors-as-tutor-list (rest possible-tutors) (- max-budget (tutor-salary (first possible-tutors))) criterion)
+             empty)
+         (if (>= max-budget (tutor-salary (first possible-tutors)))
+             (criterion (first possible-tutors))
+             0))]))
 
 
 ;; Tests
