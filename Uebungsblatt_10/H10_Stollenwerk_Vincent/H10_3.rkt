@@ -24,4 +24,26 @@
 
 ;; Type: number -> number
 ;; Returns: the number off solutions of the n-queens problem for board size nxn
-(define (n-queens n) 0)
+(define (n-queens n) (/ (queens-total n n empty 0 0) (factorial n)))
+
+;; Type: natural natural (list of queen) natural natural -> natural
+;; Returns: the number of solutions to put the left queens on the board of size field-size*field-size
+;;          different queens at the same position are counted as multiple solutions
+(define (queens-total field-size queens-left queens x y)
+  (cond
+    [(= queens-left 0) 1]
+    [(>= x field-size) (queens-total field-size queens-left queens 0 (+ y 1))]
+    [(>= y field-size) 0]
+    [else (+ (queens-total field-size queens-left queens (+ x 1) y)
+             (if (under-attack (make-queen x y) queens)
+                 0
+                 (queens-total field-size (- queens-left 1) (cons (make-queen x y) queens) 0 0)))]))
+
+;; Type: natural -> natural
+;; Returns: factorial of n
+(define (factorial n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))
+
+(check-expect (n-queens 7) 40)
