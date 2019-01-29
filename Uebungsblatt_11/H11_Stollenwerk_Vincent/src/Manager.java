@@ -154,19 +154,67 @@ public class Manager {
 					"Information", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	// TODO H2
+	/**
+	 * @param name
+	 * @return all students who's fore- or surname contains name
+	 */
 	public ArrayList<Student> searchStudentName(String name) {
-		return null;
+
+		ArrayList<Student> results = new ArrayList<>();
+
+		for (Student student : students) {
+			if (student.name.contains(name) || student.famName.contains(name)) {
+				results.add(student);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt keinen Studenten mit dem Teil - Namen: " + name);
+		}
+
+		return results;
 	}
 
-	// TODO H2
+	/**
+	 * @param name
+	 * @return all professors who's fore- or surname contains name
+	 */
 	public ArrayList<Professor> searchProfName(String name) {
-		return null;
+
+		ArrayList<Professor> results = new ArrayList<>();
+
+		for (Professor prof : profs) {
+			if (prof.name.contains(name) || prof.famName.contains(name)) {
+				results.add(prof);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt keinen Professor mit dem Teil - Namen: " + name);
+		}
+
+		return results;
 	}
 
-	// TODO H2
+	/**
+	 * @param name
+	 * @return all modules who's name contains name
+	 */
 	public ArrayList<Module> searchModuleName(String name) {
-		return null;
+
+		ArrayList<Module> results = new ArrayList<>();
+
+		for (Module module : modules) {
+			if (module.name.contains(name)) {
+				results.add(module);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt kein Modul mit dem Teil - Namen: " + name);
+		}
+
+		return results;
 	}
 
 	public Student getStudent(String studID) {
