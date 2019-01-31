@@ -11,8 +11,32 @@ public class SearchHandler implements ActionListener {
 		this.mF = mF;
 	}
 
-	// TODO H4
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		String query = mF.searchField.getText();
+
+		if (query.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Search field is empty.");
+			return;
+		}
+
+		Manager manager = Manager.createManagerInst(mF);
+
+		if (mF.searchStudentRadioButton.isSelected()) {
+			ArrayList<Student> queryResults = manager.searchStudentName(query);
+
+			manager.filterStudents = query;
+			manager.showStudents(queryResults);
+		} else if (mF.searchProfRadioButton.isSelected()) {
+			ArrayList<Professor> queryResults = manager.searchProfName(query);
+
+			manager.filterProfs = query;
+			manager.showProfs(queryResults);
+		} else if (mF.searchModuleRadioButton.isSelected()) {
+			ArrayList<Module> queryResults = manager.searchModuleName(query);
+
+			manager.filterModules = query;
+			manager.showModules(queryResults);
+		}
 	}
 }
