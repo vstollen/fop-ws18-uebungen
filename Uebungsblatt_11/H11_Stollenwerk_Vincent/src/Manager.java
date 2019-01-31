@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -238,19 +239,59 @@ public class Manager {
 		return null;
 	}
 
-	// TODO H3
+	/**
+	 * Displays new student data.
+	 * @param list Students to be displayed
+	 */
 	public void showStudents(ArrayList<Student> list) {
-		
+
+		mainFrame.studentModel.getDataVector().removeAllElements();
+		mainFrame.studentModel.fireTableDataChanged();
+
+		for (Student student : list) {
+			mainFrame.studentModel.addRow(student.data);
+		}
+
+
+		filteredStudents = list.size() < students.size() ? list : null;
+
+		mainFrame.resizeColumnWidth(mainFrame.studentTable);
 	}
 
-	// TODO H3
+	/**
+	 * Displays new professor data
+	 * @param list Professors to be displayed
+	 */
 	public void showProfs(ArrayList<Professor> list) {
 
+		mainFrame.profModel.getDataVector().removeAllElements();
+		mainFrame.profModel.fireTableDataChanged();
+
+		for (Professor prof : list) {
+			mainFrame.profModel.addRow(prof.data);
+		}
+
+		filteredProfs = list.size() < profs.size() ? list : null;
+
+		mainFrame.resizeColumnWidth(mainFrame.profTable);
 	}
 
-	// TODO H3
+	/**
+	 * Displays new Module data
+	 * @param list Modules to be displayed
+	 */
 	public void showModules(ArrayList<Module> list) {
 
+		mainFrame.moduleModel.getDataVector().removeAllElements();
+		mainFrame.moduleModel.fireTableDataChanged();
+
+		for (Module module : list) {
+			mainFrame.moduleModel.addRow(module.data);
+		}
+
+		filteredModules = list.size() < modules.size() ? list : null;
+
+		mainFrame.resizeColumnWidth(mainFrame.moduleTable);
 	}
 
 	public ArrayList<Module> getStudentModules(String studID) {
