@@ -252,8 +252,12 @@ public class Manager {
 			mainFrame.studentModel.addRow(student.data);
 		}
 
-
-		filteredStudents = list.size() < students.size() ? list : null;
+		if (list.size() < students.size()) {
+			filteredStudents = list;
+			mainFrame.resetButton.setVisible(true);
+		} else {
+			filteredStudents = null;
+		}
 
 		mainFrame.resizeColumnWidth(mainFrame.studentTable);
 	}
@@ -271,7 +275,12 @@ public class Manager {
 			mainFrame.profModel.addRow(prof.data);
 		}
 
-		filteredProfs = list.size() < profs.size() ? list : null;
+		if (list.size() < profs.size()) {
+			filteredProfs = list;
+			mainFrame.resetButton.setVisible(true);
+		} else {
+			filteredProfs = null;
+		}
 
 		mainFrame.resizeColumnWidth(mainFrame.profTable);
 	}
@@ -289,7 +298,12 @@ public class Manager {
 			mainFrame.moduleModel.addRow(module.data);
 		}
 
-		filteredModules = list.size() < modules.size() ? list : null;
+		if (list.size() < modules.size()) {
+			filteredModules = list;
+			mainFrame.resetButton.setVisible(true);
+		} else {
+			filteredModules = null;
+		}
 
 		mainFrame.resizeColumnWidth(mainFrame.moduleTable);
 	}
