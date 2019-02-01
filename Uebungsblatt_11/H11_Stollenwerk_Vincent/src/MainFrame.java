@@ -1,19 +1,8 @@
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.BorderFactory;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -21,9 +10,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -39,12 +25,15 @@ public class MainFrame extends JFrame {
 	private final int textFieldSize = 30;
 	public final int[] size = { 1280, 600 };
 
+	JPanel searchPanel = new JPanel();
+
 	JTextField searchField = new JTextField(8);
 	JButton searchButton = new JButton("Suche");
 	JRadioButton searchStudentRadioButton = new JRadioButton("Student");
 	JRadioButton searchProfRadioButton = new JRadioButton("Professor");
 	JRadioButton searchModuleRadioButton = new JRadioButton("Modul");
 	ButtonGroup searchButtonGroup = new ButtonGroup();
+	JComboBox<String> filterCategory = new JComboBox<>();
 	JButton resetButton = new JButton("Alles anzeigen");
 
 	JButton addButton = new JButton("Hinzufügen");
@@ -110,6 +99,7 @@ public class MainFrame extends JFrame {
     
 	JScrollPane studentPanel;
 	String[] studentColumns = { "Vorname", "Nachname", "Straße, Nr.", "PLZ", "Ort", "Matrikelnr.", "Studiengang" };
+	private String[] studentSearchCategories = { "Name", "Straße, Nr.", "PLZ", "Ort", "Matrikelnr.", "Studiengang"};
 	String[][] studentData = { { "", "", "", "", "", "", "" } };
 	DefaultTableModel studentModel = new DefaultTableModel() {
 		@Override
@@ -118,6 +108,8 @@ public class MainFrame extends JFrame {
 			return false;
 		}
 	};
+	DefaultComboBoxModel<String> studentComboboxModel = new DefaultComboBoxModel<>(studentSearchCategories);
+
 	JTable studentTable = new JTable(studentModel){
 	    public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
 	        Component returnComp = super.prepareRenderer(renderer, row, column);
@@ -131,6 +123,7 @@ public class MainFrame extends JFrame {
 
 	JScrollPane profPanel;
 	String[] profColumns = { "Vorname", "Nachname", "Straße, Nr.", "PLZ", "Ort", "Kürzel", "Fachgebiet" };
+	private String[] profSearchCategories = { "Name", "Straße, Nr.", "PLZ", "Ort", "Kürzel", "Fachgebiet"};
 	String[][] profData = { { "", "", "", "", "", "", "" } };
 	DefaultTableModel profModel = new DefaultTableModel() {
 		@Override
@@ -139,6 +132,8 @@ public class MainFrame extends JFrame {
 			return false;
 		}
 	};
+	DefaultComboBoxModel<String> profComboboxModel = new DefaultComboBoxModel<>(profSearchCategories);
+
 	JTable profTable = new JTable(profModel){
 	    public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
 	        Component returnComp = super.prepareRenderer(renderer, row, column);
@@ -160,6 +155,8 @@ public class MainFrame extends JFrame {
 			return false;
 		}
 	};
+	DefaultComboBoxModel<String> moduleComboboxModel = new DefaultComboBoxModel<>(moduleColumns);
+
 	JTable moduleTable = new JTable(moduleModel){
 	    public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
 	        Component returnComp = super.prepareRenderer(renderer, row, column);
@@ -223,11 +220,29 @@ public class MainFrame extends JFrame {
 		getContentPane().setPreferredSize(new Dimension(size[0], size[1]));
 		Border border = BorderFactory.createEtchedBorder();
 
-		Border searchBorder = BorderFactory.createTitledBorder(border, "Suche nach Namen");
-		JPanel searchPanel = new JPanel();
-		searchPanel.setPreferredSize(new Dimension(size[0] / 3, 60));
+		Border searchBorder = BorderFactory.createTitledBorder(border, "Suche");
+
+		searchPanel.setPreferredSize(new Dimension(size[0] / 3, 90));
 		searchPanel.setBorder(searchBorder);
 		searchPanel.setLayout(new FlowLayout());
+
+		searchStudentRadioButton.addActionListener(actionEvent -> {
+			if (searchStudentRadioButton.isSelected()) {
+				filterCategory.setModel(studentComboboxModel);
+			}
+		});
+
+		searchProfRadioButton.addActionListener(actionEvent -> {
+			if (searchProfRadioButton.isSelected()) {
+				filterCategory.setModel(profComboboxModel);
+			}
+		});
+
+		searchModuleRadioButton.addActionListener(actionEvent -> {
+			if (searchModuleRadioButton.isSelected()) {
+				filterCategory.setModel(moduleComboboxModel);
+			}
+		});
 
 		searchButtonGroup.add(searchStudentRadioButton);
 		searchButtonGroup.add(searchProfRadioButton);
@@ -241,8 +256,12 @@ public class MainFrame extends JFrame {
 		searchPanel.add(searchField);
 		searchPanel.add(searchButton);
 
+		filterCategory.setModel(studentComboboxModel);
+		searchPanel.add(filterCategory);
+
 		resetButton.setVisible(false);
 		searchPanel.add(resetButton);
+
 
 		Border addBorder = BorderFactory.createTitledBorder(border, "Hinzufügen");
 		JPanel addPanel = new JPanel();

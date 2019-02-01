@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
@@ -16,14 +18,17 @@ public class Manager {
 	public ArrayList<Student> students = new ArrayList<Student>();
 	public ArrayList<Student> filteredStudents = null;
 	public String filterStudents = "";
+	public int filterCategoryStudents = 0;
 	public String profFile = "Professoren.txt";
 	public ArrayList<Professor> profs = new ArrayList<Professor>();
 	public ArrayList<Professor> filteredProfs = null;
 	public String filterProfs = "";
+	public int filterCategoryProfs = 0;
 	public String moduleFile = "Module.txt";
 	public ArrayList<Module> modules = new ArrayList<Module>();
 	public ArrayList<Module> filteredModules = null;
 	public String filterModules = "";
+	public int filterCategoryModules = 0;
 
 	static Manager inst = null;
 
@@ -164,13 +169,36 @@ public class Manager {
 		ArrayList<Student> results = new ArrayList<>();
 
 		for (Student student : students) {
-			if (student.name.contains(name) || student.famName.contains(name)) {
+			if (student.name.toLowerCase().contains(name.toLowerCase()) || student.famName.toLowerCase().contains(name.toLowerCase())) {
 				results.add(student);
 			}
 		}
 
 		if (results.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Es gibt keinen Studenten mit dem Teil - Namen: " + name);
+		}
+
+		return results;
+	}
+
+	/**
+	 * Category should not be name
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all students who's data in the specified category matches the query.
+	 */
+	private ArrayList<Student> searchStudentData(int category, String query) {
+
+		ArrayList<Student> results = new ArrayList<>();
+
+		for (Student student : students) {
+			if (student.data[category + 1].toLowerCase().contains(query.toLowerCase())) {
+				results.add(student);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt keinen Studenten mit Teil - " + mainFrame.filterCategory.getItemAt(category) + ": " + query);
 		}
 
 		return results;
@@ -185,13 +213,37 @@ public class Manager {
 		ArrayList<Professor> results = new ArrayList<>();
 
 		for (Professor prof : profs) {
-			if (prof.name.contains(name) || prof.famName.contains(name)) {
+			if (prof.name.toLowerCase().contains(name.toLowerCase()) || prof.famName.toLowerCase().contains(name.toLowerCase())) {
 				results.add(prof);
 			}
 		}
 
 		if (results.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Es gibt keinen Professor mit dem Teil - Namen: " + name);
+		}
+
+		return results;
+	}
+
+
+	/**
+	 * Category should not be name
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all professors who's data in the specified category matches the query.
+	 */
+	private ArrayList<Professor> searchProfData(int category, String query) {
+
+		ArrayList<Professor> results = new ArrayList<>();
+
+		for (Professor prof : profs) {
+			if (prof.data[category + 1].toLowerCase().contains(query.toLowerCase())) {
+				results.add(prof);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt keinen Professor mit Teil - " + mainFrame.filterCategory.getItemAt(category) + ": " + query);
 		}
 
 		return results;
@@ -206,7 +258,7 @@ public class Manager {
 		ArrayList<Module> results = new ArrayList<>();
 
 		for (Module module : modules) {
-			if (module.name.contains(name)) {
+			if (module.name.toLowerCase().contains(name.toLowerCase())) {
 				results.add(module);
 			}
 		}
@@ -216,6 +268,66 @@ public class Manager {
 		}
 
 		return results;
+	}
+
+	/**
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all modules who's data in the specified category contains the query.
+	 */
+	private ArrayList<Module> searchModuleData(int category, String query) {
+
+		ArrayList<Module> results = new ArrayList<>();
+
+		for (Module module : modules) {
+			if (module.data[category].toLowerCase().contains(query.toLowerCase())) {
+				results.add(module);
+			}
+		}
+
+		if (results.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es gibt keinen Professor mit Teil - " + mainFrame.filterCategory.getItemAt(category) + ": " + query);
+		}
+
+		return results;
+	}
+
+	/**
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all students who's data in the specified category contains the query
+	 */
+	public ArrayList<Student> searchStudentWithCategory(int category, String query) {
+
+		if (category == 0) {
+			return searchStudentName(query);
+		}
+
+		return searchStudentData(category, query);
+	}
+
+	/**
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all profs who's data in the specified category contains the query
+	 */
+	public ArrayList<Professor> searchProfWithCategory(int category, String query) {
+
+		if (category == 0) {
+			return searchProfName(query);
+		}
+
+		return searchProfData(category, query);
+	}
+
+	/**
+	 * @param category category to be filtered by
+	 * @param query query to be filtered by
+	 * @return all modules who's data in the specified category contains the query
+	 */
+	public ArrayList<Module> searchModuleWithCategory(int category, String query) {
+
+		return searchModuleData(category, query);
 	}
 
 	public Student getStudent(String studID) {

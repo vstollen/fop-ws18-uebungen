@@ -54,8 +54,7 @@ public class AddHandler implements ActionListener {
 							allFields[3].getText(), allFields[4].getText(), newID, allFields[6].getText() };
 					// only add a row to JTable if either there is no filter active, or the new
 					// Student satisfies the filter's restrictions
-					if (manager.filteredStudents == null || allFields[0].getText().contains(manager.filterStudents)
-							|| allFields[1].getText().contains(manager.filterStudents)) {
+					if (shouldStudentBeDisplayed()) {
 						model.addRow(newData);
 					}
 					manager.students.add(new Student(newData));
@@ -69,8 +68,7 @@ public class AddHandler implements ActionListener {
 							allFields[3].getText(), allFields[4].getText(), newID, allFields[6].getText() };
 					// only add a row to JTable if either there is no filter active, or the new
 					// Professor satisfies the filter's restrictions
-					if (manager.filteredProfs == null || allFields[0].getText().contains(manager.filterProfs)
-							|| allFields[1].getText().contains(manager.filterProfs)) {
+					if (shouldProfBeDisplayed()) {
 						model.addRow(newData);
 					}
 					manager.profs.add(new Professor(newData));
@@ -92,7 +90,7 @@ public class AddHandler implements ActionListener {
 						newModule.addParticipants(mF.partField.getText());
 						// only add a row to JTable if either there is no filter active, or the new
 						// Module satisfies the filter's restrictions
-						if (manager.filteredModules == null || allFields[0].getText().contains(manager.filterModules)) {
+						if (shouldModuleBeDisplayed()) {
 							model.addRow(newModule.data);
 						}
 						manager.modules.add(newModule);
@@ -103,5 +101,68 @@ public class AddHandler implements ActionListener {
 			for (JTextField f : allFields)
 				f.setText("");
 		}
+	}
+
+	/**
+	 * @return if data to be added matches current student filter
+	 */
+	private boolean shouldStudentBeDisplayed() {
+
+		Manager manager = Manager.createManagerInst(mF);
+
+		if (manager.filteredStudents == null) {
+			return true;
+		}
+
+		if (manager.filterCategoryStudents < 2) {
+			return namesContain(manager.filterStudents);
+		}
+
+		return allFields[manager.filterCategoryStudents + 1].getText().toLowerCase().contains(manager.filterStudents.toLowerCase());
+	}
+
+	/**
+	 * @return if data to be added matches current prof filter
+	 */
+	private boolean shouldProfBeDisplayed() {
+
+		Manager manager = Manager.createManagerInst(mF);
+
+		if (manager.filteredProfs == null) {
+			return true;
+		}
+
+		if (manager.filterCategoryProfs < 2) {
+			return namesContain(manager.filterProfs);
+		}
+
+		return allFields[manager.filterCategoryProfs + 1].getText().toLowerCase().contains(manager.filterProfs.toLowerCase());
+	}
+
+	/**
+	 * @return if data to be added matches current module filter
+	 */
+	private boolean shouldModuleBeDisplayed() {
+
+		Manager manager = Manager.createManagerInst(mF);
+
+		if (manager.filteredModules == null) {
+			return true;
+		}
+
+		return allFields[manager.filterCategoryModules].getText().toLowerCase().contains(manager.filterModules.toLowerCase());
+	}
+
+	/**
+	 * @param query name-part to be looking for
+	 * @return if fore- or surname contains query
+	 */
+	private boolean namesContain(String query) {
+		if (allFields[0].getText().toLowerCase().contains(query.toLowerCase())) {
+			return true;
+		}
+
+		return allFields[1].getText().toLowerCase().contains(query.toLowerCase());
+
 	}
 }

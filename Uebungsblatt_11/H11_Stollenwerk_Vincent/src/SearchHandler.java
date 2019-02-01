@@ -23,19 +23,22 @@ public class SearchHandler implements ActionListener {
 		Manager manager = Manager.createManagerInst(mF);
 
 		if (mF.searchStudentRadioButton.isSelected()) {
-			ArrayList<Student> queryResults = manager.searchStudentName(query);
+			ArrayList<Student> queryResults = manager.searchStudentWithCategory(mF.filterCategory.getSelectedIndex(), query);
 
 			manager.filterStudents = query;
+			manager.filterCategoryStudents = mF.filterCategory.getSelectedIndex();
 			manager.showStudents(queryResults);
 		} else if (mF.searchProfRadioButton.isSelected()) {
-			ArrayList<Professor> queryResults = manager.searchProfName(query);
+			ArrayList<Professor> queryResults = manager.searchProfWithCategory(mF.filterCategory.getSelectedIndex(), query);
 
 			manager.filterProfs = query;
+			manager.filterCategoryProfs = mF.filterCategory.getSelectedIndex();
 			manager.showProfs(queryResults);
 		} else if (mF.searchModuleRadioButton.isSelected()) {
-			ArrayList<Module> queryResults = manager.searchModuleName(query);
+			ArrayList<Module> queryResults = manager.searchModuleWithCategory(mF.filterCategory.getSelectedIndex(), query);
 
 			manager.filterModules = query;
+			manager.filterCategoryModules = mF.filterCategory.getSelectedIndex();
 			manager.showModules(queryResults);
 		}
 	}
