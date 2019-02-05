@@ -1,5 +1,6 @@
 package Main;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +29,16 @@ public class Graph<T, W extends Comparable<W>> {
 	public void addNode(T node) {
 		nodes.add(node);
 		adjustWeightMatrices();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setWeight(String weightMatrix, int row, int column, W weight) {
+		if (!weights.containsKey(weightMatrix)) {
+			weights.put(weightMatrix, (W[][]) new Object[MIN_MATRIX_SIZE][MIN_MATRIX_SIZE]);
+			adjustWeightMatrices();
+		}
+		
+		weights.get(weightMatrix)[row][column] = weight;
 	}
 	
 	/**
