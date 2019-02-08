@@ -101,7 +101,7 @@ public class GraphTests {
 		testGraph.addNode("A");
 		testGraph.addNode("B");
 		testGraph.addNode("C");
-		testGraph.addNode("D");
+		testGraph.addNode("A");
 		
 		testGraph.setWeight("default", 0, 1, 3);
 		testGraph.setWeight("default", 1, 0, 2);
@@ -109,7 +109,7 @@ public class GraphTests {
 		testGraph.setWeight("default", 2, 3, 1);
 		testGraph.setWeight("default", 3, 2, 2);
 		
-		String[] allPathsSolution = {"B -> A", "B -> C -> D"};
+		String[] allPathsSolution = {"B -> A", "B -> C -> A"};
 		String[] allPathsIndizesSolution = {"1 -> 0", "1 -> 2 -> 3"};
 		
 		String[] allPaths = testGraph.getAllPaths("default", 1, false);

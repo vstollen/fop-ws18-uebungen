@@ -67,9 +67,16 @@ public class Graph<T, W extends Comparable<W>> {
 		return nodes.size();
 	}
 	
+	/**
+	 * Finds all Paths from the start node
+	 * @param matrixName
+	 * @param startNode
+	 * @param useNodeIndizes
+	 * @return Array of Paths as Strings
+	 */
 	public String[] getAllPaths(String matrixName, int startNode, boolean useNodeIndizes) {
 		
-		ArrayList<LinkedList<String>> allPaths = getAllPaths(weights.get(matrixName), startNode, useNodeIndizes, new ArrayList<String>());
+		ArrayList<LinkedList<String>> allPaths = getAllPaths(weights.get(matrixName), startNode, useNodeIndizes, new ArrayList<Integer>());
 		ArrayList<String> pathStrings = new ArrayList<>(allPaths.size());
 		
 		final String edgeString = " -> ";
@@ -92,15 +99,19 @@ public class Graph<T, W extends Comparable<W>> {
 		return pathStrings.toArray(new String[pathStrings.size()]);
 	}
 	
-	private ArrayList<LinkedList<String>> getAllPaths(ScalingMatrix<W> weightMatrix, int startNode, boolean useNodeIndizes, Collection<String> visitedNodes) {
+	/**
+	 * Finds all paths from the start node
+	 * @param weightMatrix
+	 * @param startNode
+	 * @param useNodeIndizes
+	 * @param visitedNodes
+	 * @return all paths in an array List, represented by an ordered LinkedList
+	 */
+	private ArrayList<LinkedList<String>> getAllPaths(ScalingMatrix<W> weightMatrix, int startNode, boolean useNodeIndizes, Collection<Integer> visitedNodes) {
 		
 		ArrayList<LinkedList<String>> paths = new ArrayList<>();
 		
-		if (useNodeIndizes) {
-			visitedNodes.add(Integer.toString(startNode));
-		} else {
-			visitedNodes.add(nodes.get(startNode).toString());
-		}
+		visitedNodes.add(startNode);
 		
 		for (int nextNode = 0; nextNode < weightMatrix.size(); nextNode++) {
 			
@@ -110,17 +121,11 @@ public class Graph<T, W extends Comparable<W>> {
 				continue;
 			}
 			
-			if (useNodeIndizes) {
-				if (visitedNodes.contains(Integer.toString(nextNode))) {
-					continue;
-				}
-			} else {
-				if (visitedNodes.contains(nodes.get(nextNode).toString())) {
-					continue;
-				}
+			if (visitedNodes.contains(nextNode)) {
+				continue;
 			}
 			
-			ArrayList<LinkedList<String>> pathsFromNextNode = getAllPaths(weightMatrix, nextNode, useNodeIndizes, new ArrayList<String>(visitedNodes));
+			ArrayList<LinkedList<String>> pathsFromNextNode = getAllPaths(weightMatrix, nextNode, useNodeIndizes, new ArrayList<Integer>(visitedNodes));
 			
 			for (LinkedList<String> path : pathsFromNextNode) {
 				if (useNodeIndizes) {
