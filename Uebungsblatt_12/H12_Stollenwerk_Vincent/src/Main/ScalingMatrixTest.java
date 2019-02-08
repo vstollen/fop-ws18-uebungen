@@ -47,4 +47,14 @@ public class ScalingMatrixTest {
 		
 		assertEquals(42, (int) testMatrix.get(6, 7));
 	}
+	
+	@Test
+	public void initialSizeConstructorTest() {
+		
+		ScalingMatrix<Boolean> testMatrix = new ScalingMatrix<>(false, 5);
+		
+		assertEquals(5, testMatrix.size());
+		
+		assertEquals(false, testMatrix.get(2, 3));
+	}
 }

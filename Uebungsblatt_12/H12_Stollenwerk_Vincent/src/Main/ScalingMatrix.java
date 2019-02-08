@@ -14,6 +14,16 @@ public class ScalingMatrix<T> {
         this.defaultElement = defaultElement;
         matrix = new Object[0][0];
     }
+    
+    /**
+     * Creates a scaling matrix of given size
+     * @param defaultElement element to fill not set matrix values
+     * @param size initial matrix size
+     */
+    public ScalingMatrix(T defaultElement, int size) {
+    	this(defaultElement);
+    	assureSize(size);
+    }
 
     /**
      * @param row
