@@ -120,7 +120,7 @@ public class Graph<T, W extends Comparable<W>> {
 				}
 			}
 			
-			ArrayList<LinkedList<String>> pathsFromNextNode = getAllPaths(weightMatrix, nextNode, useNodeIndizes, visitedNodes);
+			ArrayList<LinkedList<String>> pathsFromNextNode = getAllPaths(weightMatrix, nextNode, useNodeIndizes, new ArrayList<String>(visitedNodes));
 			
 			for (LinkedList<String> path : pathsFromNextNode) {
 				if (useNodeIndizes) {
