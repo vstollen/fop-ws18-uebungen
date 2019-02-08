@@ -13,11 +13,11 @@ public class ScalingMatrixTest {
     	
     	assertThrows(ArrayIndexOutOfBoundsException.class, () -> testMatrix.get(0, 0));
     	
-    	assertEquals(0, testMatrix.getSize());
+    	assertEquals(0, testMatrix.size());
     	
     	testMatrix.assureSize(5);
     	
-    	assertEquals(5, testMatrix.getSize());
+    	assertEquals(5, testMatrix.size());
     	
     	for (int row = 0; row < 5; row++) {
     		for (int column = 0; column < 5; column++) {

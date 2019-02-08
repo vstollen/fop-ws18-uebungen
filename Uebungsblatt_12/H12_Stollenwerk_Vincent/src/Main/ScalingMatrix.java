@@ -28,7 +28,7 @@ public class ScalingMatrix<T> {
     /**
      * @return matrix size
      */
-    public int getSize() {
+    public int size() {
     	return matrix.length;
     }
     
@@ -47,7 +47,7 @@ public class ScalingMatrix<T> {
      * @param size minimum size
      */
     public void assureSize(int size) {
-        if (getSize() < size) {
+        if (size() < size) {
             growToSize(size);
         }
     }
