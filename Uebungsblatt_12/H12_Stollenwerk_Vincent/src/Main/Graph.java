@@ -8,13 +8,14 @@ import java.util.Map.Entry;
 public class Graph<T, W extends Comparable<W>> {
 	
 	private ArrayList<T> nodes = new ArrayList<>();
-	private ScalingMatrix<W> weights;
+	private HashMap<String, ScalingMatrix<W>> weights = new HashMap<>();
 	
+	private final W defaultEdgeValue;
 	/**
 	 * @param defaultEdgeValue value for no edge value
 	 */
 	public Graph(W defaultEdgeValue) {
-		weights = new ScalingMatrix<W>(defaultEdgeValue);
+		this.defaultEdgeValue = defaultEdgeValue;
 	}
 	
 	/**
@@ -23,6 +24,27 @@ public class Graph<T, W extends Comparable<W>> {
 	 */
 	public void addNode(T node) {
 		nodes.add(node);
-		weights.assureSize(nodes.size());
+		
+		int newSize = nodes.size();
+		
+		for (ScalingMatrix<W> matrix : weights.values()) {
+			matrix.assureSize(newSize);
+		}
+	}
+	
+	/**
+	 * Sets the weight of the matrix named matrixName at position row column to weight
+	 * If there is no matrix named matrixName a new one will be created
+	 * @param matrixName name of the matrix
+	 * @param row row in the matrix
+	 * @param column column in the matrix
+	 * @param weight new weight to be set
+	 */
+	public void setWeight(String matrixName, int row, int column, W weight) {
+		if (!weights.containsKey(matrixName)) {
+			weights.put(matrixName, new ScalingMatrix<W>(defaultEdgeValue, nodes.size()));
+		}
+		
+		weights.get(matrixName).set(row, column, weight);
 	}
 }
