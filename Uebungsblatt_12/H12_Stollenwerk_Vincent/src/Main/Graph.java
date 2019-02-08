@@ -2,7 +2,9 @@ package Main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 
 public class Graph<T, W extends Comparable<W>> {
@@ -10,12 +12,12 @@ public class Graph<T, W extends Comparable<W>> {
 	private ArrayList<T> nodes = new ArrayList<>();
 	private HashMap<String, ScalingMatrix<W>> weights = new HashMap<>();
 	
-	private final W defaultEdgeValue;
+	private final W noEdgeValue;
 	/**
-	 * @param defaultEdgeValue value for no edge value
+	 * @param noEdgeValue value for no edge value
 	 */
-	public Graph(W defaultEdgeValue) {
-		this.defaultEdgeValue = defaultEdgeValue;
+	public Graph(W noEdgeValue) {
+		this.noEdgeValue = noEdgeValue;
 	}
 	
 	/**
@@ -42,7 +44,7 @@ public class Graph<T, W extends Comparable<W>> {
 	 */
 	public void setWeight(String matrixName, int row, int column, W weight) {
 		if (!weights.containsKey(matrixName)) {
-			weights.put(matrixName, new ScalingMatrix<W>(defaultEdgeValue, nodes.size()));
+			weights.put(matrixName, new ScalingMatrix<W>(noEdgeValue, nodes.size()));
 		}
 		
 		weights.get(matrixName).set(row, column, weight);
@@ -63,5 +65,86 @@ public class Graph<T, W extends Comparable<W>> {
 	 */
 	public int getNumberOfNodes() {
 		return nodes.size();
+	}
+	
+	public String[] getAllPaths(String matrixName, int startNode, boolean useNodeIndizes) {
+		
+		ArrayList<LinkedList<String>> allPaths = getAllPaths(weights.get(matrixName), startNode, useNodeIndizes, new ArrayList<String>());
+		ArrayList<String> pathStrings = new ArrayList<>(allPaths.size());
+		
+		final String edgeString = " -> ";
+		
+		for (LinkedList<String> path : allPaths) {
+			StringBuilder pathString = new StringBuilder();
+			
+			for (String node : path) {
+				
+				if (pathString.length() > 0) {
+					pathString.append(edgeString);
+				}
+				
+				pathString.append(node);
+			}
+			
+			pathStrings.add(pathString.toString());
+		}
+		
+		return pathStrings.toArray(new String[pathStrings.size()]);
+	}
+	
+	private ArrayList<LinkedList<String>> getAllPaths(ScalingMatrix<W> weightMatrix, int startNode, boolean useNodeIndizes, Collection<String> visitedNodes) {
+		
+		ArrayList<LinkedList<String>> paths = new ArrayList<>();
+		
+		if (useNodeIndizes) {
+			visitedNodes.add(Integer.toString(startNode));
+		} else {
+			visitedNodes.add(nodes.get(startNode).toString());
+		}
+		
+		for (int nextNode = 0; nextNode < weightMatrix.size(); nextNode++) {
+			
+			W nextWeight = weightMatrix.get(startNode, nextNode);
+			
+			if (nextWeight.equals(noEdgeValue)) {
+				continue;
+			}
+			
+			if (useNodeIndizes) {
+				if (visitedNodes.contains(Integer.toString(nextNode))) {
+					continue;
+				}
+			} else {
+				if (visitedNodes.contains(nodes.get(nextNode).toString())) {
+					continue;
+				}
+			}
+			
+			ArrayList<LinkedList<String>> pathsFromNextNode = getAllPaths(weightMatrix, nextNode, useNodeIndizes, visitedNodes);
+			
+			for (LinkedList<String> path : pathsFromNextNode) {
+				if (useNodeIndizes) {
+					path.addFirst(Integer.toString(startNode));
+				} else {
+					path.addFirst(nodes.get(startNode).toString());
+				}
+			}
+			
+			paths.addAll(pathsFromNextNode);
+		}
+		
+		if (paths.isEmpty()) {
+			
+			LinkedList<String> pathToStartNode = new LinkedList<>();
+			
+			if (useNodeIndizes) {
+				pathToStartNode.add(Integer.toString(startNode));
+			} else {
+				pathToStartNode.add(nodes.get(startNode).toString());
+			}
+			
+			paths.add(pathToStartNode);
+		}
+		return paths;
 	}
 }
