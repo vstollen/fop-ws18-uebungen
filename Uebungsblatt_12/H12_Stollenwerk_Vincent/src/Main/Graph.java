@@ -47,4 +47,21 @@ public class Graph<T, W extends Comparable<W>> {
 		
 		weights.get(matrixName).set(row, column, weight);
 	}
+	
+	/**
+	 * @param matrixName name of the Matrix
+	 * @param row row in the matrix
+	 * @param column column in the matrix
+	 * @return Weight at position row column of the matrix named matrixName
+	 */
+	public W getWeight(String matrixName, int row, int column) {
+		return weights.get(matrixName).get(row, column);
+	}
+	
+	/**
+	 * @return current number of nodes
+	 */
+	public int getNumberOfNodes() {
+		return nodes.size();
+	}
 }
