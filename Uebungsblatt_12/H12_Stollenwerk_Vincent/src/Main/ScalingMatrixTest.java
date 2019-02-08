@@ -9,8 +9,9 @@ public class ScalingMatrixTest {
 
 	@Test
     public void assureSizeTest() {
-    	ScalingMatrix<Integer> testMatrix = new ScalingMatrix<Integer>(42);
-    	
+		
+		ScalingMatrix<Integer> testMatrix = new ScalingMatrix<Integer>(42);
+		
     	assertThrows(ArrayIndexOutOfBoundsException.class, () -> testMatrix.get(0, 0));
     	
     	assertEquals(0, testMatrix.size());
@@ -28,4 +29,22 @@ public class ScalingMatrixTest {
     	assertThrows(ArrayIndexOutOfBoundsException.class, () -> testMatrix.get(6, 1));
     	assertThrows(ArrayIndexOutOfBoundsException.class, () -> testMatrix.get(1, 6));
     }
+	
+	@Test
+	public void setTest() {
+		
+		ScalingMatrix<Integer> testMatrix = new ScalingMatrix<Integer>(42);
+		
+		testMatrix.assureSize(5);
+		
+		testMatrix.set(3, 2, 100);
+		
+		assertEquals(100, (int) testMatrix.get(3, 2));
+		
+		testMatrix.assureSize(10);
+		
+		assertEquals(100, (int) testMatrix.get(3, 2));
+		
+		assertEquals(42, (int) testMatrix.get(6, 7));
+	}
 }
