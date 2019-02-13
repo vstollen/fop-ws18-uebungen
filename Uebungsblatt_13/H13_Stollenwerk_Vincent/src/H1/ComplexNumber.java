@@ -28,19 +28,39 @@ public class ComplexNumber {
 	}
 
 
-	// TODO H1.1
+	/**
+	 * Adds given complex number to this and returns the result in a new ComplexNumber object
+	 * @param cn Complex number to add
+	 * @return sum of this and cn
+	 */
 	public ComplexNumber add(ComplexNumber cn) {
-		return null;
+		double real = this.real + cn.real;
+		double imaginary = this.imaginary + cn.imaginary;
+
+		return new ComplexNumber(imaginary, real);
 	}
 
-	// TODO H1.1
+	/**
+	 * Multiplies given complex number to this and returns the result in a new ComplexNumber object
+	 * @param cn Complex number multiply with
+	 * @return product of this and cn
+	 */
 	public ComplexNumber mult(ComplexNumber cn) {
-		return null;
+		double real = this.real * cn.real - this.imaginary * cn.imaginary;
+		double imaginary = this.real * cn.imaginary + this.imaginary * cn.real;
+
+		return new ComplexNumber(imaginary, real);
 	}
 
-	// TODO H1.1
+	/**
+	 * Calculates the absolute value of this
+	 * @return Absolute value of this
+	 */
 	public double abs() {
-		return 0;
+		double realSquare = Math.pow(real, 2);
+		double imaginarySquare = Math.pow(imaginary, 2);
+
+		return Math.sqrt(realSquare + imaginarySquare);
 	}
 
 	public String toString() {
