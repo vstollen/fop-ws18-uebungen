@@ -2,7 +2,11 @@ package H2;
 
 public class DragonCurve {
 
-	// TODO H2.1
+	/**
+	 * Calculates the DragonSequence for a given n
+	 * @param n
+	 * @return DragonSequence of n'th order
+	 */
 	public String getSequence(int n) {
 
 		if (n < 1) {
