@@ -21,7 +21,7 @@ public class DragonCurve {
 
 		StringBuilder newSequence = new StringBuilder(leadingSequence);
 
-		newSequence.setCharAt(leadingSequence.length() / 2, 'L');
+		newSequence.setCharAt((int) Math.floor(leadingSequence.length() >> 1), 'L');
 
 		return leadingSequence + "R" + newSequence.toString();
 	}

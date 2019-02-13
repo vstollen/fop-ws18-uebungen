@@ -24,11 +24,33 @@ public class Visualizer extends JFrame {
 		len = 400 / Math.pow(2, n / 2.);
 	}
 
-	// TODO H2.2
 	@Override
 	public void paint(Graphics g) {
-		
-		
+
+		double currentAngle = startingAngle;
+		int currentX = 250;
+		int currentY = 375;
+
+		for (int i = 0; i <= turns.length(); i++) {
+
+			int newX = currentX + (int) (len * Math.cos(currentAngle));
+			int newY = currentY + (int) (len * Math.sin(currentAngle));
+
+			g.drawLine(currentX, currentY, newX, newY);
+
+			if (i == turns.length()) {
+				break;
+			}
+
+			if (turns.charAt(i) == 'R') {
+				currentAngle = currentAngle + Math.PI / 2;
+			} else {
+				currentAngle = currentAngle - Math.PI / 2;
+			}
+
+			currentX = newX;
+			currentY = newY;
+		}
 	}
 	
 	
