@@ -33,8 +33,8 @@ public class Visualizer extends JFrame {
 
 		for (int i = 0; i <= turns.length(); i++) {
 
-			int newX = currentX + (int) (len * Math.cos(currentAngle));
-			int newY = currentY + (int) (len * Math.sin(currentAngle));
+			int newX = currentX + (int) Math.round((int) len * Math.cos(currentAngle));
+			int newY = currentY + (int) Math.round((int) len * Math.sin(currentAngle));
 
 			g.drawLine(currentX, currentY, newX, newY);
 
