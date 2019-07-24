@@ -1,3 +1,3 @@
-# FoP_WS18-19_Uebungen
+# FOP Wintersemester 18/19 Übungen
 
-My solutions to the TU Darmstadt FoP 2018/19 module.
+My exercises for the course "Funktionale und objektorientierte Programmierkonzepte" at TU Darmstadt.
